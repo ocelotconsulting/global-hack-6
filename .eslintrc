@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "babel",
+    "react"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0,
+    "no-console": 0,
+    "spaced-comment": 0,
+    "space-before-function-paren": 0,
+    "no-return-assign": 0
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "standard"
+  ],
+  "globals": {
+    "localStorage": true,
+    "fetch": true,
+    "google": true
+  }
+}
