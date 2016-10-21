@@ -1,5 +1,5 @@
 const express = require('express')
-const agent = require('./agent')
+const agent = require('../src/agent')
 const moment = require('moment')
 
 const router = express.Router()
