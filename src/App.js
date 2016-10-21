@@ -1,4 +1,4 @@
-//noinspection JSUnusedLocalSymbols
+// noinspection JSUnusedLocalSymbols
 const React = require('react')
 
 const App = () =>

@@ -5,8 +5,7 @@ import App from './App'
 
 const routes =
   <Router history={browserHistory}>
-    <Route path="/" component={App}/>
+    <Route path='/' component={App}/>
   </Router>
 
 render(routes, document.getElementById('main'))
-

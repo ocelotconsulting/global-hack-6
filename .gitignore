@@ -38,3 +38,6 @@ jspm_packages
 
 .idea
 .DS_Store
+
+# Since we're not using yarn this weekend
+yarn.lock
