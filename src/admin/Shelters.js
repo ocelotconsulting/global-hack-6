@@ -4,11 +4,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import Col from 'react-bootstrap/lib/Col'
 import Select from 'react-select'
-import agent from '../agent'
 import _ from 'underscore'
-import { browserHistory } from 'react-router'
-
-const mapById = shelters => _(shelters).chain().map(s => [s.id, s]).object().value()
+import sheltersById from './sheltersById'
 
 export default class Shelters extends React.Component {
   constructor(props, context) {
@@ -17,17 +14,7 @@ export default class Shelters extends React.Component {
   }
 
   componentWillMount() {
-    agent.get('/services/shelters')
-    .then(({ body }) => {
-      const data = mapById(body)
-      this.setState({ data })
-      const { value } = this.props
-      if (value && data[value]) {
-        this.props.onSelection(data[value])
-      } else if (value) {
-        browserHistory.push('/admin')
-      }
-    })
+    sheltersById().then(data => this.setState({data}))
   }
 
   render() {
@@ -37,16 +24,14 @@ export default class Shelters extends React.Component {
     if (data) {
       const options = _(data).values().map(s => ({ value: s.id, label: `${s.name} (${s.street} ${s.zip})` }))
 
-      const handleSelection = ({ value }) => onSelection(data[value])
-
       return (
         <Form horizontal>
           <FormGroup controlId='selectShelter'>
             <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
-              Find shelter
+              Select shelter
             </Col>
             <Col sm={5} md={6} lg={8}>
-              <Select value={value} options={options} onChange={handleSelection} clearable={false}/>
+              <Select value={value} options={options} onChange={({value}) => onSelection(data[value])} clearable={false}/>
             </Col>
           </FormGroup>
         </Form>
