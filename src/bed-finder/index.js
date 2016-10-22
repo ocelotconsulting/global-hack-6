@@ -1,58 +1,83 @@
-import React from 'react'
-import { render } from 'react-dom'
+import React from "react";
+import {render} from "react-dom";
 
-const SubmitCounts = ({moveForward}) =>
-    <div className="bed-finder">
-        <div className="title">Find Beds</div>
-        <div className="input-row">
-            <div className="btn-group" role="group" aria-label="...">
-                <button type="button" className="btn btn-default">-</button>
-                <button type="button" className="btn btn-default">+</button>
+class SubmitCounts extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            men: 0,
+            women: 0,
+            children: 0,
+            infants: 0
+        };
+    }
+    changeCount(field, direction) {
+        const newState = {}
+        newState[field] = (this.state[field] || 0) + direction
+        if (newState[field] < 0)
+            newState[field] = 0
+        this.setState(newState)
+    }
+    render() {
+        const {moveForward} = this.props
+        return <div className="bed-finder">
+            <div className="title">Find Beds</div>
+
+            <div className="input-row">
+                <div className="btn-group" role="group" aria-label="...">
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('men', -1)}>-</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('men', +1)}>+</button>
+                </div>
+                {this.state.men} Adult Males
             </div>
-            0 Adult Males
-        </div>
-        <div className="input-row">
-            <div className="btn-group" role="group" aria-label="...">
-                <button type="button" className="btn btn-default">-</button>
-                <button type="button" className="btn btn-default">+</button>
+
+            <div className="input-row">
+                <div className="btn-group" role="group" aria-label="...">
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('woman', -1)}>-</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('woman', +1)}>+</button>
+                </div>
+                {this.state.woman} Adult Females
             </div>
-            0 Adult Females
-        </div>
-        <div className="input-row">
-            <div className="btn-group" role="group" aria-label="...">
-                <button type="button" className="btn btn-default">-</button>
-                <button type="button" className="btn btn-default">+</button>
+
+            <div className="input-row">
+                <div className="btn-group" role="group" aria-label="...">
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('children', -1)}>-</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('children', +1)}>+</button>
+                </div>
+                {this.state.children} Children
             </div>
-            0 Children
-        </div>
-        <div className="input-row">
-            <div className="btn-group" role="group" aria-label="...">
-                <button type="button" className="btn btn-default">-</button>
-                <button type="button" className="btn btn-default">+</button>
+
+            <div className="input-row">
+                <div className="btn-group" role="group" aria-label="...">
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('infants', -1)}>-</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('infants', +1)}>+</button>
+                </div>
+                {this.state.infants} Infants
             </div>
-            0 Infants
+
+            <button className="btn btn-primary" onClick={moveForward}>Find Beds</button>
         </div>
-        <button className="btn btn-primary" onClick={moveForward}>Find Beds</button>
-    </div>
+    }
+}
 
 const SearchResults = ({reserve}) => {
-        const results = [
-                {id: 1, name: 'Some Shelter Name'},
-                {id: 2, name: 'Some Other Shelter'},
-                {id: 3, name: 'Yet Another Shelter'}
-            ]
-        return (
-            <div className="bed-finder-results">
-                <div className="title">Open Beds Nearby</div>
-                <div>
-                    {results.map((result) => <SearchResult key={result.id} result={result} reserve={reserve}/>)}
-                </div>
-                <div className="result">
-                    <a href="">notifications of new openings</a>
-                </div>
+    const results = [
+        {id: 1, name: 'Some Shelter Name'},
+        {id: 2, name: 'Some Other Shelter'},
+        {id: 3, name: 'Yet Another Shelter'}
+    ]
+    return (
+        <div className="bed-finder-results">
+            <div className="title">Open Beds Nearby</div>
+            <div>
+                {results.map((result) => <SearchResult key={result.id} result={result} reserve={reserve}/>)}
             </div>
-        )
-    }
+            <div className="result">
+                <a href="">notifications of new openings</a>
+            </div>
+        </div>
+    )
+}
 
 const SearchResult = ({result, reserve}) =>
     <div className="result">
@@ -93,14 +118,16 @@ class BedFinder extends React.Component {
         super(props)
         this.state = {step: 'submitCounts'}
     }
+
     moveTo(step) {
-        console.log('moving to', step)
         this.setState({step: step})
     }
+
     reserve(shelterId) {
         this.setState({shelterId: shelterId})
         this.moveTo('reserve')
     }
+
     render() {
         switch (this.state.step) {
             case 'submitCounts':

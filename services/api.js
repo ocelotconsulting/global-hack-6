@@ -2,6 +2,7 @@ const express = require('express')
 const agent = require('../src/agent')
 const moment = require('moment')
 const clients = require('./clients')
+const shelters = require('./shelters')
 
 const router = express.Router()
 
@@ -16,6 +17,17 @@ router.get('/now', (req, res, next) => {
 })
 
 router.use('/clients', clients)
+
+router.get('/shelters/', (req, res, next) => {
+  shelters.findClose({
+    origin: '3264 Olive St, St. Louis, MO, 63103'
+  })
+  .then((response) => {
+    console.log(response)
+    return res.json(response)
+  })
+  .catch((err) => res.json(err))
+})
 
 router.use('/*', (req, res, next) => {
   res.status(404).send('Route not found')
