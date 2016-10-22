@@ -1,7 +1,7 @@
 import React from "react";
 import {render} from "react-dom";
 
-const SearchResults = ({reserve}) => {
+const SearchResults = ({reserve, details}) => {
     const results = [
         {id: 1, name: 'Some Shelter Name'},
         {id: 2, name: 'Some Other Shelter'},
@@ -11,7 +11,7 @@ const SearchResults = ({reserve}) => {
         <div className="bed-finder-results">
             <div className="title">Open Beds Nearby</div>
             <div>
-                {results.map((result) => <SearchResult key={result.id} result={result} reserve={reserve}/>)}
+                {results.map((result) => <SearchResult key={result.id} result={result} reserve={reserve} details={details}/>)}
             </div>
             <div className="result">
                 <a href="">notifications of new openings</a>
@@ -20,13 +20,13 @@ const SearchResults = ({reserve}) => {
     )
 }
 
-const SearchResult = ({result, reserve}) =>
+const SearchResult = ({result, reserve, details}) =>
     <div className="result">
-        <div className="shelter-name">{result.name}</div>
+        <div className="shelter-name"><a href="#" onClick={() => details(result.id)}>{result.name}</a></div>
         <a href="#" className="register-link" onClick={() => reserve(result.id)}>reserve</a>
         <div className="details">
             <ul>
-                <li>1.3 miles (<a href="">directions</a>)</li>
+                <li>1.3 miles (17 min walking)</li>
                 <li>7 open beds</li>
                 <li>registration closes at 10pm</li>
             </ul>

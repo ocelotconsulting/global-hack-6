@@ -4,6 +4,7 @@ import agent from "../agent";
 import SubmitCounts from "./CountsForm"
 import SearchResults from "./SearchResults"
 import Reserve from "./ReserveBedForm"
+import ShelterDetail from "./ShelterDetail"
 
 class BedFinder extends React.Component {
     constructor(props) {
@@ -43,14 +44,21 @@ class BedFinder extends React.Component {
         this.moveTo('reserve')
     }
 
+    details(shelterId) {
+        this.setState({shelterId: shelterId})
+        this.moveTo('shelter-detail')
+    }
+
     getBody() {
         switch (this.state.step) {
             case 'submitCounts':
                 return <SubmitCounts submitCounts={(counts) => this.submitCounts(counts)}/>;
             case 'searchResults':
-                return <SearchResults reserve={(id) => this.reserve(id)}/>;
+                return <SearchResults reserve={(id) => this.reserve(id)} details={(id) => this.details(id)}/>;
             case 'reserve':
                 return <Reserve/>;
+            case 'shelter-detail':
+                return <ShelterDetail/>;
             default:
                 return <SubmitCounts/>;
 
