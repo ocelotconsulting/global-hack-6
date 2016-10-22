@@ -13,9 +13,6 @@ const SearchResults = ({reserve, details}) => {
             <div>
                 {results.map((result) => <SearchResult key={result.id} result={result} reserve={reserve} details={details}/>)}
             </div>
-            <div className="result">
-                <a href="">notifications of new openings</a>
-            </div>
         </div>
     )
 }
