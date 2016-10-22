@@ -27,7 +27,7 @@ class SubmitCounts extends React.Component {
         )
     }
     render() {
-        const {moveForward} = this.props
+        const {submitCounts} = this.props
         return <div className="bed-finder">
             <div className="title">Find Beds</div>
 
@@ -63,7 +63,7 @@ class SubmitCounts extends React.Component {
                 {this.state.infants} Infants
             </div>
 
-            <button className="btn btn-primary" onClick={moveForward} disabled={this.submitDisabled()}>Find Beds</button>
+            <button className="btn btn-primary" onClick={() => submitCounts(this.state)} disabled={this.submitDisabled()}>Find Beds</button>
         </div>
     }
 }
@@ -130,10 +130,18 @@ class BedFinder extends React.Component {
         }
     }
 
-    submitCounts() {
+    submitCounts(counts) {
         this.setState({showWaitTicker: true})
-        setTimeout((() => this.moveTo('searchResults')), 3000)
 
+        navigator.geolocation.getCurrentPosition((position) => {
+            const data = {
+                lat: position.coords.latitude,
+                long: position.coords.longitude,
+                people: counts
+            }
+            console.log(data)
+            this.moveTo('searchResults')
+        });
     }
 
     moveTo(step) {
@@ -151,7 +159,7 @@ class BedFinder extends React.Component {
     getBody() {
         switch (this.state.step) {
             case 'submitCounts':
-                return <SubmitCounts moveForward={() => this.submitCounts()}/>;
+                return <SubmitCounts submitCounts={(counts) => this.submitCounts(counts)}/>;
             case 'searchResults':
                 return <SearchResults reserve={(id) => this.reserve(id)}/>;
             case 'reserve':
