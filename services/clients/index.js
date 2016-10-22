@@ -9,9 +9,7 @@ const router = express.Router()
 router.get('/', (req, res) => {
   const {q} = req.query
   const data = mockData
-  .filter((data) => {
-    return data.last_name.toLowerCase().startsWith(q.toLowerCase())
-  })
+  .filter((data) => (data.last_name || '').toLowerCase().startsWith(q.toLowerCase()))
   res.json(_(data).sortBy('first_name'))
 })
 

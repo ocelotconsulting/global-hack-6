@@ -1,16 +1,21 @@
 // noinspection JSUnusedLocalSymbols
-import React from 'react'
+import React, {PropTypes as T} from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 
 export default class Navigation extends React.Component {
+  static contextTypes = {
+    router: T.object
+  }
 
   render () {
     const {auth} = this.props
     const profile = auth.getProfile()
-
+    const router = this.context.router
     const loginOrUser = () => (auth.loggedIn())
-        ? (<NavItem eventKey={1} href="#">{profile.name}</NavItem>)
-        : (<NavItem eventKey={1} onClick={() => auth.login()}>Login</NavItem>)
+        ? (<NavDropdown eventKey={4} title={profile.name} id="basic-nav-dropdown">
+             <MenuItem eventKey={4.1} onClick={() => { auth.logout(); this.forceUpdate() }}>Logout</MenuItem>
+           </NavDropdown>)
+        : (<NavItem eventKey={4} onClick={() => { auth.login(); this.forceUpdate() }}>Login</NavItem>)
 
     return (
       <Navbar inverse>
