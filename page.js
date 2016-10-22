@@ -1,4 +1,4 @@
-const title = 'Ocelot Consulting Global Hack VI'
+const title = 'Ocelot Global Hack VI'
 const googleMapsApiKey = 'AIzaSyAxVaHXZxWdgkByrq8ALNmH8PJBVSzhwXc'
 
 module.exports = `
