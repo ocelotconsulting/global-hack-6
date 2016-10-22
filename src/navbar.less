@@ -1,0 +1,27 @@
+.navbar:first-of-type {
+    margin-bottom: 0;
+}
+.navbar {
+    background: @navbar-main;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    border-bottom: 1px solid @navbar-border;
+}
+.navbar-inverse {
+    .navbar-toggle:hover {
+        background-color: @navbar-border;
+    }
+    .navbar-collapse {
+        border-color: @navbar-border;
+    }
+    .navbar-toggle {
+        border-color: @navbar-foreground;
+    }
+    .navbar-brand {
+        color: @navbar-foreground;
+    }
+    .navbar-nav>li>a {
+        color: @navbar-foreground;
+    }
+}
