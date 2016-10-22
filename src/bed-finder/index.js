@@ -27,9 +27,11 @@ class BedFinder extends React.Component {
             }
             agent.post('/services/shelters')
                 .send(data)
-                .then((res) => console.log(res))
-            console.log(data)
-            this.moveTo('searchResults')
+                .then((res) => {
+                    this.setState({'searchResults': res.body})
+                    console.log(res.body)
+                    this.moveTo('searchResults')
+                })
         });
     }
 
@@ -60,7 +62,7 @@ class BedFinder extends React.Component {
             case 'submitCounts':
                 return <SubmitCounts submitCounts={(counts) => this.submitCounts(counts)}/>;
             case 'searchResults':
-                return <SearchResults reserve={(id) => this.reserve(id)} details={(id) => this.details(id)}/>;
+                return <SearchResults searchResults={this.state.searchResults} reserve={(id) => this.reserve(id)} details={(id) => this.details(id)}/>;
             case 'reserve':
                 return <Reserve/>;
             case 'shelter-detail':
