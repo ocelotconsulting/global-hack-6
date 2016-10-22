@@ -7,6 +7,7 @@ module.exports = `
   <meta charset="UTF-8">
   <meta name = "viewport" content = "initial-scale = 1.0, user-scalable = no">
   <title>${title}</title>
+  <link href="/favicon.ico" rel="shortcut icon">
   <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/chartist/dist/chartist.min.css">
   <link rel="stylesheet" type="text/css" href="/styles.css">
