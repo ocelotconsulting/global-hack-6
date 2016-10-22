@@ -20,7 +20,7 @@ export default class Navigation extends React.Component {
           <Navbar inverse>
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to='/'>GlobalHack 6</Link>
+                <Link to='/'><img src="/logo.png"/>SomeAppName</Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
