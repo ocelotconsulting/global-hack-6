@@ -1,4 +1,4 @@
-const mango = require('./mango')
+const mango = require('../mango')
 
 const shelterMango = (shelterId) => ({
   selector: {
@@ -9,11 +9,11 @@ const shelterMango = (shelterId) => ({
       $gt: null
     }
   },
-  fields: ['_id', 'sns-topic']
+  fields: ['_id', 'sns-topic', 'contact', 'name']
 })
 
 const getTopic = (shelterId) =>
  mango('shelters', shelterMango(shelterId))
-  .then((shelters) => shelters[0]['sns-topic'])
+  .then((shelters) => shelters[0])
 
 module.exports = getTopic
