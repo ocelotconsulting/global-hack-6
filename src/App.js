@@ -1,7 +1,7 @@
 // noinspection JSUnusedLocalSymbols
 import React, {PropTypes as T} from 'react'
-import { ButtonToolbar, Button } from 'react-bootstrap'
 import AuthService from './auth/AuthService'
+import Navigation from './Navigation'
 
 export default class App extends React.Component {
   static contextTypes = {
@@ -15,15 +15,10 @@ export default class App extends React.Component {
   }
 
   render () {
-    const {auth, children} = this.props
     return (
-      <div className='root'>
-        <h1>Hello, Global Hack</h1>
-        <h2>Login</h2>
-        <ButtonToolbar className='toolbar'>
-            <Button bsStyle="primary" onClick={() => auth.login()}>Login</Button>
-        </ButtonToolbar>
-        {children}
+      <div>
+        <Navigation auth={this.props.auth}/>
+        {this.props.children}
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import App from './App'
-import {BedFinder, Results} from './bed-finder'
+import {BedFinder, Results, Reserve} from './bed-finder'
 import Authentication from './Authentication'
 import AuthService from './auth/AuthService'
 
@@ -30,6 +30,7 @@ const routes =
       <IndexRoute component={Dashboard}/>
       <Route path="bed" component={BedFinder} onEnter={requireAuth}/>
       <Route path="/bed/results" component={Results} onEnter={requireAuth}/>
+      <Route path="/bed/reserve" component={Reserve} onEnter={requireAuth}/>
       <Route path="auth" component={AuthenticationWrapper} onEnter={requireAuth}/>
     </Route>
   </Router>
