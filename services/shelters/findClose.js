@@ -32,4 +32,5 @@ module.exports = ({ origin }) => {
     })
     return Promise.all(distances)
   })
+  .then(results => _.sortBy(results, shelter => shelter.distance.walking.distance.value))
 }
