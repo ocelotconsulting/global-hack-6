@@ -1,3 +1,4 @@
+const _ = require('underscore')
 const getAll = require('./getAll')
 const distance = require('../distance')
 
@@ -22,19 +23,7 @@ module.exports = ({ origin }) => {
       return distance({ origin, destination: shelterAddress })
       .then(result => {
         return {
-          shelter: {
-            name: doc.name,
-            address: shelterAddress,
-            contact: doc.contact,
-            open_beds: {
-              men: getAvailableBedCountByType('men'),
-              women: getAvailableBedCountByType('women'),
-              children: getAvailableBedCountByType('children'),
-              infants: getAvailableBedCountByType('infants')
-            },
-            hours_for_intake: doc.hours_for_intake,
-            restrictions: doc.restrictions
-          },
+          shelter: doc,
           distance: {
             walking: result.rows[0].elements[0]
           }
