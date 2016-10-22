@@ -1,9 +1,30 @@
 // noinspection JSUnusedLocalSymbols
-const React = require('react')
+import React, {PropTypes as T} from 'react'
+import { ButtonToolbar, Button } from 'react-bootstrap'
+import AuthService from './auth/AuthService'
 
-const App = () =>
-  <h1>Hello, Global Hack</h1>
+export default class App extends React.Component {
+  static contextTypes = {
+    router: T.object
+  }
 
-App.displayName = 'App'
+  static propTypes = {
+    location: T.object,
+    children: T.object,
+    auth: T.instanceOf(AuthService)
+  }
 
-export default App
+  render () {
+    const {auth, children} = this.props
+    return (
+      <div className='root'>
+        <h1>Hello, Global Hack</h1>
+        <h2>Login</h2>
+        <ButtonToolbar className='toolbar'>
+            <Button bsStyle="primary" onClick={() => auth.login()}>Login</Button>
+        </ButtonToolbar>
+        {children}
+      </div>
+    )
+  }
+}
