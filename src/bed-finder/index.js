@@ -28,10 +28,26 @@ const BedFinder = () =>
         <button className="btn btn-primary">Find Bed</button>
     </div>
 
+const Results = () => {
+        const results = [
+                {id: 1, name: 'Some Shelter Name'},
+                {id: 2, name: 'Some Other Shelter'},
+                {id: 3, name: 'Yet Another Shelter'}
+            ]
+        return (
+            <div className="bed-finder-results">
+                <div className="title">Open Beds Nearby</div>
+                <div>
+                    {results.map((result) => <SearchResult key={result.id} result={result}/>)}
+                </div>
+            </div>
+        )
+    }
+
 const SearchResult = ({result}) =>
     <div className="result">
         <div className="shelter-name">{result.name}</div>
-        <a href="" className="register-link">register</a>
+        <a href="" className="register-link">reserve</a>
         <div className="details">
             <ul>
                 <li>1.3 miles (<a href="">directions</a>)</li>
@@ -48,22 +64,6 @@ const SearchResult = ({result}) =>
             </ul>
         </div>
     </div>
-
-const Results = () => {
-        const results = [
-                {id: 1, name: 'Some Shelter Name'},
-                {id: 2, name: 'Some Other Shelter'},
-                {id: 3, name: 'Yet Another Shelter'}
-            ]
-        return (
-            <div className="bed-finder-results">
-                <div className="title">Open Beds Nearby</div>
-                <div>
-                    {results.map((result) => <SearchResult key={result.id} result={result}/>)}
-                </div>
-            </div>
-        )
-    }
 
 export {BedFinder, Results}
 
