@@ -1,22 +1,32 @@
 import React from "react"
 import {render} from "react-dom"
 import moment from "moment"
+import _ from 'underscore'
 
-const SearchResults = ({searchResults, reserve, details}) => {
+const SearchResults = ({bedsRequested, searchResults, reserve, details}) => {
     return (
         <div className="bed-finder-results">
             <div className="title">Open Beds Nearby</div>
             <div>
-                {searchResults.map((result) => <SearchResult key={result.shelter.id} result={result} reserve={reserve}
-                                                             details={details}/>)}
+                {searchResults.map((result) => <SearchResult key={result.shelter.id} bedsRequested={bedsRequested} result={result} reserve={reserve} details={details}/>)}
             </div>
         </div>
     )
 }
 
-const SearchResult = ({result, reserve, details}) => {
+const SearchResult = ({result, bedsRequested, reserve, details}) => {
     const closing = moment(result.shelter.hours_for_intake.closed, "HHmm")
     const closingMessage = closing.isValid() ? `registration closes at ${closing.fromNow()}` : 'registration closing time unknown'
+    let matches = true
+    _(bedsRequested).pairs().forEach(([key, val]) => {
+        if (val > 0) {
+            let bedSet = result.shelter.beds.find((beds) => _(beds.who).contains(key))
+            if (!bedSet || (bedSet.total_beds - bedSet.total_taken) < val) {
+                matches = false
+            }
+        }
+    })
+
     return (
         <div className="result">
             <div className="shelter-name"><a href="#" onClick={() => details(result.shelter.id)}>{result.shelter.name}</a></div>
@@ -24,7 +34,7 @@ const SearchResult = ({result, reserve, details}) => {
             <div className="details">
                 <ul>
                     <li>{result.distance.walking.distance.text} ({result.distance.walking.duration.text} walking)</li>
-                    <li>7 open beds</li>
+                    <li>{matches ? 'currently has enough open beds' : 'unlikely match'}</li>
                     <li>{closingMessage}</li>
                 </ul>
             </div>

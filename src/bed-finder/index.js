@@ -17,7 +17,10 @@ class BedFinder extends React.Component {
     }
 
     submitCounts(counts) {
-        this.setState({showWaitTicker: true})
+        this.setState({
+            showWaitTicker: true,
+            bedsRequested: counts
+        })
 
         navigator.geolocation.getCurrentPosition((position) => {
             let data = {
@@ -82,7 +85,8 @@ class BedFinder extends React.Component {
             case 'submitCounts':
                 return <SubmitCounts submitCounts={(counts) => this.submitCounts(counts)}/>;
             case 'searchResults':
-                return <SearchResults searchResults={this.state.searchResults} reserve={(id) => this.reserve(id)} details={(id) => this.details(id)}/>;
+                console.log(this.state)
+                return <SearchResults bedsRequested={this.state.bedsRequested} searchResults={this.state.searchResults} reserve={(id) => this.reserve(id)} details={(id) => this.details(id)}/>;
             case 'reserve':
                 return <Reserve/>;
             case 'shelter-detail':
