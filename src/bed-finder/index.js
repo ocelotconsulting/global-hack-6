@@ -5,6 +5,7 @@ import SubmitCounts from "./CountsForm"
 import SearchResults from "./SearchResults"
 import Reserve from "./ReserveBedForm"
 import ShelterDetail from "./ShelterDetail"
+import SubmitPhone from "./SubmitPhone"
 
 class BedFinder extends React.Component {
     constructor(props) {
@@ -49,6 +50,11 @@ class BedFinder extends React.Component {
         this.moveTo('shelter-detail')
     }
 
+    notifyWhenShelterIsAvailable(shelterId) {
+        console.log('send notification when shelter is available', shelterId)
+        this.moveTo('shelter-detail')
+    }
+
     getBody() {
         switch (this.state.step) {
             case 'submitCounts':
@@ -58,10 +64,11 @@ class BedFinder extends React.Component {
             case 'reserve':
                 return <Reserve/>;
             case 'shelter-detail':
-                return <ShelterDetail/>;
+                return <ShelterDetail shelter={{}} requestNotification={() => this.moveTo('enter-phone')}/>;
+            case 'enter-phone':
+                return <SubmitPhone requestNotification={(id) => this.notifyWhenShelterIsAvailable(id)}/>;
             default:
                 return <SubmitCounts/>;
-
         }
     }
 
