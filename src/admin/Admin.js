@@ -9,16 +9,19 @@ export default class Admin extends React.Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.props.routeParams))
-    const onShelterSelected = shelter => {
+    const { children, params } = this.props
+    const { shelter } = this.state
+    const shelterId = (shelter && shelter.id) || params.shelterId
+
+    const onShelterSelected = (shelter) => {
       this.setState({ shelter })
-      browserHistory.push(`/admin/${shelter._id}`)
+      browserHistory.push(`/admin/${encodeURIComponent(shelter.id)}`)
     }
 
     return (
       <div className='admin'>
-        <Shelters value={this.state.shelter} onChange={onShelterSelected}/>
-        {this.props.children}
+        <Shelters value={shelterId} onSelection={onShelterSelected}/>
+        {shelter && children ? React.cloneElement(children, { shelter }) : null}
       </div>
     )
   }
