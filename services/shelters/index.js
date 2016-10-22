@@ -17,18 +17,7 @@ router.get('/:id', ({ params: { id } }, res, next) =>
 )
 
 router.post('/', (req, res, next) => {
-  console.log('searching shelters with a body of: ', req.body)
-  const expectedBody = {
-    lat: 38.628551,
-    long: -90.197504,
-    people: {
-      men: 0,
-      women: 1,
-      children: 0,
-      infants: 1
-    }
-  }
-  findClose({ origin: `${expectedBody.lat}, ${expectedBody.long}` })
+  findClose({ origin: `${req.body.lat}, ${req.body.long}` })
   .then(response => res.json(response))
   .catch(next)
 })
