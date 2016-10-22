@@ -18,10 +18,6 @@ router.get('/now', (req, res, next) => {
 
 router.use('/clients', clients)
 
-router.use('/*', (req, res, next) => {
-  res.status(404).send('Route not found')
-})
-
 router.get('/shelters/', (req, res, next) => {
   shelters.findClose({
     origin: '3264 Olive St, St. Louis, MO, 63103'
@@ -31,6 +27,10 @@ router.get('/shelters/', (req, res, next) => {
     return res.json(response)
   })
   .catch((err) => res.json(err))
+})
+
+router.use('/*', (req, res, next) => {
+  res.status(404).send('Route not found')
 })
 
 module.exports = router
