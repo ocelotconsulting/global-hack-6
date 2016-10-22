@@ -1,5 +1,6 @@
 import React from "react";
 import {render} from "react-dom";
+import agent from "../agent";
 
 class SubmitCounts extends React.Component {
     constructor(props) {
@@ -139,6 +140,9 @@ class BedFinder extends React.Component {
                 long: position.coords.longitude,
                 people: counts
             }
+            agent.post('/services/shelters')
+                .submit(data)
+                .then((res) => console.log(res))
             console.log(data)
             this.moveTo('searchResults')
         });
