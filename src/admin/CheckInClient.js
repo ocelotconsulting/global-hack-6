@@ -5,7 +5,8 @@ import agent from '../agent'
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup'
 import Button from 'react-bootstrap/lib/Button'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
+import FadeIn from '../FadeIn'
 
 export default class Checkin extends React.Component {
   updateClient(clientId = this.props.params.clientId) {
@@ -23,25 +24,33 @@ export default class Checkin extends React.Component {
 
   render() {
     const { client } = this.state || {}
+    const { shelterId, clientId } = this.props.params
+
+    const backAddress = `/admin/${encodeURIComponent(shelterId)}`
+
+    const onCheckIn = () =>
+      agent.post(`/services/shelters/${encodeURIComponent(shelterId)}/reservations`)
+      .send({ clientId })
+      .then(() => browserHistory.push(backAddress))
 
     if (client) {
       return (
-        <div className='check-in'>
+        <FadeIn className='check-in' context={this.props.params.clientId}>
           <h2>
             {`${client.first_name} ${client.last_name}`}
           </h2>
           <hr/>
           <ButtonToolbar>
             <ButtonGroup>
-              <Button bsStyle='primary'>Check In</Button>
+              <Button bsStyle='primary' onClick={onCheckIn}>Check In</Button>
             </ButtonGroup>
             <ButtonGroup>
-              <Link to={`/admin/${encodeURIComponent(this.props.params.shelterId)}`} className='btn btn-default'>
+              <Link to={backAddress} className='btn btn-default'>
                 Cancel
               </Link>
             </ButtonGroup>
           </ButtonToolbar>
-        </div>
+        </FadeIn>
       )
     } else {
       return (<div className='spinner'/>)
