@@ -1,31 +1,33 @@
 import React from "react";
 import {render} from "react-dom";
 
-const ShelterDetail = ({shelter, requestNotification}) => {
+const ShelterDetail = ({shelter, requestNotification, shelterLocation}) => {
     function notify(e) {
         e.preventDefault()
         requestNotification(shelter.id)
     }
 
+    console.log(shelter)
+    console.log(shelterLocation)
+
     return (
         <div className="shelter-detail">
-            <div className="title">ShelterName</div>
+            <div className="title">{shelter.name}</div>
             <div className="contact-info">
-                <div>123 Birch St</div>
-                <div>(555) 456-2989</div>
+                <div>{shelter.street}</div>
+                <div>{shelter.city} {shelter.county}</div>
+                <div>{shelter.contact.phone}</div>
             </div>
             <div className="map">map goes here</div>
             <ul className="detail">
-                <li>1.2 miles</li>
-                <li>16 min walk</li>
-                <li>5 min public transit</li>
+                <li>{shelterLocation.walking.distance.text}</li>
+                <li>{shelterLocation.walking.duration.text}</li>
                 <li>0 open beds - <a href="" onClick={notify}>notify me</a></li>
             </ul>
             <div className="restrictions">
                 <div>Restrictions</div>
                 <ul>
-                    <li>men only</li>
-                    <li>no Trump supporters</li>
+                    { shelter.restrictions.map((restriction) => <li key={restriction}>{restriction}</li>) }
                 </ul>
             </div>
         </div>

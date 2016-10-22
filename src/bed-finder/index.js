@@ -29,7 +29,6 @@ class BedFinder extends React.Component {
                 .send(data)
                 .then((res) => {
                     this.setState({'searchResults': res.body})
-                    console.log(res.body)
                     this.moveTo('searchResults')
                 })
         });
@@ -49,12 +48,20 @@ class BedFinder extends React.Component {
 
     details(shelterId) {
         this.setState({shelterId: shelterId})
-        this.moveTo('shelter-detail')
+        agent.get(`/services/shelters/${shelterId}`)
+            .then((details) => {
+                this.setState({shelterDetail: details.body})
+                this.moveTo('shelter-detail')
+            })
     }
 
     notifyWhenShelterIsAvailable(shelterId) {
         console.log('send notification when shelter is available', shelterId)
         this.moveTo('shelter-detail')
+    }
+
+    getLocation(shelter) {
+        return this.state.searchResults.find((result) => { return result.shelter.id == shelter._id }).distance
     }
 
     getBody() {
@@ -66,7 +73,7 @@ class BedFinder extends React.Component {
             case 'reserve':
                 return <Reserve/>;
             case 'shelter-detail':
-                return <ShelterDetail shelter={{}} requestNotification={() => this.moveTo('enter-phone')}/>;
+                return <ShelterDetail shelter={this.state.shelterDetail} shelterLocation={this.getLocation(this.state.shelterDetail)} requestNotification={() => this.moveTo('enter-phone')}/>;
             case 'enter-phone':
                 return <SubmitPhone requestNotification={(id) => this.notifyWhenShelterIsAvailable(id)}/>;
             default:
