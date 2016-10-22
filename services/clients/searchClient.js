@@ -12,8 +12,8 @@ const clientMango = (q) => ({
   }
 })
 
-const searchUser = (req, res) =>
+const searchClient = (req, res) =>
   mango('clients', clientMango(req.query.q))
   .then((clients) => res.json(_(clients).sortBy('first_name')))
 
-module.exports = searchUser
+module.exports = searchClient

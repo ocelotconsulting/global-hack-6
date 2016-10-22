@@ -1,7 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const searchUser = require('./searchUser')
+const searchClient = require('./searchClient')
+const upsertClient = require('./upsertClient')
+const getClient = require(`./getClient`)
 
-router.get('/', searchUser)
+router.get('/', searchClient)
+router.post('/', upsertClient)
+router.get('/:id', getClient)
 
 module.exports = router
