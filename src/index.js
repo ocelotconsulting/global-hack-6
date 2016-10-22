@@ -6,6 +6,7 @@ import App from './App'
 import { BedFinder } from './bed-finder'
 import Authentication from './Authentication'
 import Admin from './admin/Admin'
+import CheckInClient from './admin/CheckInClient'
 import Shelter from './admin/Shelter'
 import AuthService from './auth/AuthService'
 //noinspection JSFileReferences
@@ -44,7 +45,7 @@ const routes =
       <Route path='auth' component={AuthenticationWrapper} onEnter={requireAuth}/>
       <Route path='admin' component={Admin} onEnter={requireAuth}>
         <Route path=':shelterId' component={ShelterContainer}>
-          <Route path='check-in/:clientId' component="CheckIn"/>
+          <Route path='check-in/:clientId' component={CheckInClient}/>
           <IndexRoute component={Shelter}/>
         </Route>
       </Route>
