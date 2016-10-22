@@ -6,6 +6,7 @@ import {BedFinder} from './bed-finder'
 import Authentication from './Authentication'
 import Admin from './admin/Admin'
 import AuthService from './auth/AuthService'
+import {Clients, FindClient, RegisterClient} from './clients'
 
 const auth = new AuthService('AkO3gnKJqhHFE6Be6xiWfINFdYbF95qH', 'larry.auth0.com')
 
@@ -27,10 +28,14 @@ const Dashboard = React.createClass({
 
 const routes =
   <Router history={browserHistory}>
-    <Route path="/" component={AppWrapper}>
+    <Route path='/' component={AppWrapper}>
       <IndexRoute component={Dashboard}/>
-      <Route path="bed" component={BedFinder} onEnter={requireAuth}/>
-      <Route path="auth" component={AuthenticationWrapper} onEnter={requireAuth}/>
+      <Route path='clients' component={Clients} onEnter={requireAuth}>
+        <Route path='locate' component={FindClient}/>
+        <Route path='register' component={RegisterClient}/>
+      </Route>
+      <Route path='bed' component={BedFinder} onEnter={requireAuth}/>
+      <Route path='auth' component={AuthenticationWrapper} onEnter={requireAuth}/>
       <Route path='admin' component={Admin} onEnter={requireAuth}/>
     </Route>
   </Router>
