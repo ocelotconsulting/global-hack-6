@@ -1,32 +1,8 @@
 // noinspection JSUnusedLocalSymbols
 const React = require('react')
 const agent = require('../agent')
-import {Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, Panel, Button, ButtonToolbar} from 'react-bootstrap'
-// import { Link } from 'react-router
-
-class Client extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-  render () {
-    return (
-      <Col sm={6} md={4} lg={4}>
-        <Panel>
-            <div>
-              <label>{this.props.first_name} {this.props.last_name}</label>
-            </div>
-            <div>{this.props.phone ? this.props.phone : ''}</div>
-            <div>{this.props.email ? this.props.email : ''}</div>
-            <hr/>
-            <ButtonToolbar>
-              <Button bsStyle='default' bsSize='xsmall'>Select</Button>
-              <Button bsStyle='info' bsSize='xsmall'>Details</Button>
-            </ButtonToolbar>
-        </Panel>
-      </Col>
-    )
-  }
-}
+import {Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap'
+import ClientCard from './ClientCard'
 
 class FindClient extends React.Component {
   constructor (props) {
@@ -75,12 +51,13 @@ class FindClient extends React.Component {
       this.setState({q: e.target.value})
     }
   }
-  mapQueryResults (client, i) {
-    return <Client key={client.email} {...client}/>
+  mapQueryResults (client, returnTo) {
+    return <ClientCard key={client.email} {...client} returnTo={returnTo}/>
   }
   render () {
+    const {query: {returnTo}} = this.props.location
     const handleChange = (e) => this.handleChange(e)
-    const mapQueryResults = (x, i) => this.mapQueryResults(x, i)
+    const mapQueryResults = (x) => this.mapQueryResults(x, returnTo)
     return (
       <div className='container-fluid'>
         <Row>
@@ -109,6 +86,10 @@ class FindClient extends React.Component {
       </div>
     )
   }
+}
+
+FindClient.propTypes = {
+  location: React.PropTypes.object
 }
 
 export default FindClient
