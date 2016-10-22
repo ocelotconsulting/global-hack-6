@@ -5,9 +5,9 @@ import App from './App'
 import { BedFinder } from './bed-finder'
 import Authentication from './Authentication'
 import Admin from './admin/Admin'
-import Checkin from './admin/Checkin'
+import Shelter from './admin/Shelter'
 import AuthService from './auth/AuthService'
-import {Clients, FindClient, RegisterClient} from './clients'
+import { Clients, FindClient, RegisterClient } from './clients'
 
 const auth = new AuthService('AkO3gnKJqhHFE6Be6xiWfINFdYbF95qH', 'larry.auth0.com')
 
@@ -37,8 +37,9 @@ const routes =
       </Route>
       <Route path='bed' component={BedFinder} onEnter={requireAuth}/>
       <Route path='auth' component={AuthenticationWrapper} onEnter={requireAuth}/>
-      <Route path='admin' component={Admin} onEnter={requireAuth}/>
-      <Route path='admin/check-in' component={Checkin} onEnter={requireAuth}/>
+      <Route path='admin' component={Admin} onEnter={requireAuth}>
+        <Route path=':shelterId' component={Shelter}/>
+      </Route>
     </Route>
   </Router>
 

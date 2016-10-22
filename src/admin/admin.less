@@ -2,76 +2,93 @@
 
 .admin {
   margin: 30px;
-  .summary {
-    margin-top: 20px;
-    .description {
-      .date, .name  {
-        font-weight: bold;
+  .nothing-selected {
+    margin: 10px;
+    font-style: italic;
+  }
+  .shelter {
+    .summary {
+      margin-top: 20px;
+      .description {
+        .date, .name  {
+          font-weight: bold;
+        }
+        .date {
+          font-style: italic;
+        }
+        .total, .available, .pending {
+          font-weight: bold;
+          font-size: 120%;
+        }
+        .available {
+          color: @brand-success;
+        }
+        .pending {
+          color: @brand-warning;
+        }
       }
-      .date {
-        font-style: italic;
-      }
-      .total, .available, .pending {
-        font-weight: bold;
-        font-size: 120%;
-      }
-      .available {
-        color: @brand-success;
-      }
-      .pending {
-        color: @brand-warning;
+      .summary-chart {
+        margin-top: 20px;
+        @availableColor: @brand-success;
+        @reservedColor: @brand-danger;
+        @pendingColor: @brand-warning;
+
+        .key {
+          margin-top: 40px;
+          .item {
+            margin: 5px;
+            .icon {
+              height: 20px;
+              width: 20px;
+              display: inline-block;
+              margin-right: 10px;
+            }
+            &.reserved {
+              .icon {
+                background: @reservedColor;
+              }
+            }
+            &.pending {
+              .icon {
+                background: @pendingColor;
+              }
+            }
+            &.available {
+              .icon {
+                background: @availableColor;
+              }
+            }
+            .key-label {
+              display: inline-block;
+              vertical-align: top;
+            }
+          }
+        }
+        .chart {
+          .ct-slice-pie {
+            stroke: #e0e0e0;
+            stroke-width: 1px;
+          }
+          .ct-series-a .ct-slice-pie {
+            fill: @reservedColor;
+          }
+          .ct-series-b .ct-slice-pie {
+            fill: @pendingColor;
+          }
+          .ct-series-c .ct-slice-pie {
+            fill: @availableColor;
+          }
+        }
       }
     }
-    .summary-chart {
-      margin-top: 20px;
-      @availableColor: @brand-success;
-      @reservedColor: @brand-danger;
-      @pendingColor: @brand-warning;
-
-      .key {
-        .item {
-          margin: 5px;
-          .icon {
-            height: 20px;
-            width: 20px;
-            display: inline-block;
-            margin-right: 10px;
-          }
-          &.reserved {
-            .icon {
-              background: @reservedColor;
-            }
-          }
-          &.pending {
-            .icon {
-              background: @pendingColor;
-            }
-          }
-          &.available {
-            .icon {
-              background: @availableColor;
-            }
-          }
-          .key-label {
-            display: inline-block;
-            vertical-align: top;
-          }
-        }
+    .details {
+      text-align: center;
+      .address {
+        font-weight: bold;
+        color: @brand-info;
       }
-      .chart {
-        .ct-slice-pie {
-          stroke: #e0e0e0;
-          stroke-width: 1px;
-        }
-        .ct-series-a .ct-slice-pie {
-          fill: @reservedColor;
-        }
-        .ct-series-b .ct-slice-pie {
-          fill: @pendingColor;
-        }
-        .ct-series-c .ct-slice-pie {
-          fill: @availableColor;
-        }
+      .contact {
+        font-style: italic;
       }
     }
   }

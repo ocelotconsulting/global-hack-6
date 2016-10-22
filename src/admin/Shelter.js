@@ -1,15 +1,41 @@
 import React from 'react'
-// import Form from 'react-bootstrap/lib/Form'
-// import FormGroup from 'react-bootstrap/lib/FormGroup'
-// import ControlLabel from 'react-bootstrap/lib/ControlLabel'
-// import Row from 'react-bootstrap/lib/Row'
-// import Col from 'react-bootstrap/lib/Col'
-// import Select from 'react-select'
+import moment from 'moment'
+import ShelterSummary from './ShelterSummary'
+import ShelterDetails from './ShelterDetails'
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
+import ButtonGroup from 'react-bootstrap/lib/ButtonGroup'
+import { Link } from 'react-router'
 
 export default class Shelter extends React.Component {
   render() {
-    return (
-      <div/>
-    )
+    const { shelter, routeParams: {shelterId} } = this.props
+
+    if (shelter) {
+      const shelterSummaryProps = {
+        name: shelter.name,
+        date: moment().toISOString(),
+        beds: {
+          available: 104,
+          pending: 20,
+          total: 221
+        }
+      }
+
+      return (
+        <div className='shelter'>
+          <ShelterSummary {...shelterSummaryProps}/>
+          <ShelterDetails {...shelter}/>
+          <ButtonToolbar>
+            <ButtonGroup>
+              <Link to="/admin/check-in" className='btn btn-primary'>Check In Client</Link>
+            </ButtonGroup>
+          </ButtonToolbar>
+        </div>
+      )
+    } else {
+      return (
+        <div className='spinner'/>
+      )
+    }
   }
 }
