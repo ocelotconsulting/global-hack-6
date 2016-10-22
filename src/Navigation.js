@@ -26,9 +26,9 @@ export default class Navigation extends React.Component {
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav>
-                <li><Link to='/bed'>Beds</Link></li>
-                <li><Link to='/admin'>Admin</Link></li>
-                <li><Link to='/clients'>Clients</Link></li>
+                <NavItem eventKey={1} href="/bed">Beds</NavItem>
+                <NavItem eventKey={1} href="/admin">Admin</NavItem>
+                <NavItem eventKey={1} href="/clients">Clients</NavItem>
                 {/* <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
                   <MenuItem eventKey={3.1}>Action</MenuItem>
                   <MenuItem eventKey={3.2}>Another action</MenuItem>
