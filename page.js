@@ -7,6 +7,7 @@ module.exports = `
 <head>
   <meta charset="UTF-8">
   <meta name = "viewport" content = "initial-scale = 1.0, user-scalable = no">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>${title}</title>
   <link href="/favicon.ico" rel="shortcut icon">
   <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
