@@ -120,7 +120,6 @@ class BedFinder extends React.Component {
     }
 
     moveTo(step) {
-        console.log('moving to', step)
         this.setState({step: step})
     }
 
