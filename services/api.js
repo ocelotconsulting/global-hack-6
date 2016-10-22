@@ -1,6 +1,7 @@
 const express = require('express')
 const agent = require('../src/agent')
 const moment = require('moment')
+const shelters = require('./shelters')
 
 const router = express.Router()
 
@@ -12,6 +13,17 @@ router.get('/now', (req, res, next) => {
   .accept('json')
   .then(({ body: { dateString } }) => res.send(`Current time is ${moment(dateString).format(timeFormat)}`))
   .catch(next)
+})
+
+router.get('/shelters/', (req, res, next) => {
+  shelters.findClose({
+    origin: '3264 Olive St, St. Louis, MO, 63103'
+  })
+  .then((response) => {
+    console.log(response)
+    return res.json(response)
+  })
+  .catch((err) => res.json(err))
 })
 
 module.exports = router
