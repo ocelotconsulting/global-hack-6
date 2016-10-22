@@ -70,6 +70,7 @@
     "less-plugin-clean-css": "~1.5.1",
     "md5": "^2.2.1",
     "mocha": "~3.1.2",
+    "moment": "^2.15.1",
     "react": "~15.3.2",
     "react-addons-test-utils": "~15.3.2",
     "react-bootstrap": "~0.30.5",

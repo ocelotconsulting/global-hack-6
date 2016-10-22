@@ -1,42 +1,47 @@
-import React from "react";
-import {render} from "react-dom";
+import React from "react"
+import {render} from "react-dom"
+import moment from "moment"
 
-const SearchResults = ({reserve, details}) => {
-    const results = [
-        {id: 1, name: 'Some Shelter Name'},
-        {id: 2, name: 'Some Other Shelter'},
-        {id: 3, name: 'Yet Another Shelter'}
-    ]
+const SearchResults = ({searchResults, reserve, details}) => {
     return (
         <div className="bed-finder-results">
             <div className="title">Open Beds Nearby</div>
             <div>
-                {results.map((result) => <SearchResult key={result.id} result={result} reserve={reserve} details={details}/>)}
+                {searchResults.map((result) => <SearchResult key={result.id} result={result} reserve={reserve}
+                                                             details={details}/>)}
             </div>
         </div>
     )
 }
 
-const SearchResult = ({result, reserve, details}) =>
-    <div className="result">
-        <div className="shelter-name"><a href="#" onClick={() => details(result.id)}>{result.name}</a></div>
-        <a href="#" className="register-link" onClick={() => reserve(result.id)}>reserve</a>
-        <div className="details">
-            <ul>
-                <li>1.3 miles (17 min walking)</li>
-                <li>7 open beds</li>
-                <li>registration closes at 10pm</li>
-            </ul>
-        </div>
+const SearchResult = ({result, reserve, details}) => {
+    const closing = moment(result.shelter.hours_for_intake.closed, "HHmm")
+    const closingMessage = closing.isValid() ? `registration closes at ${closing.fromNow()}` : 'registration closing time unknown'
+    return (
+        <div className="result">
+            <div className="shelter-name"><a href="#" onClick={() => details(result.id)}>{result.shelter.name}</a></div>
+            <a href="#" className="register-link" onClick={() => reserve(result.id)}>reserve</a>
+            <div className="details">
+                <ul>
+                    <li>{result.distance.walking.distance.text} ({result.distance.walking.duration.text} walking)</li>
+                    <li>7 open beds</li>
+                    <li>{closingMessage}</li>
+                </ul>
+            </div>
 
-        <div className="restrictions">
-            <div className="subtitle">Restrictions</div>
-            <ul>
-                <li>men only</li>
-                <li>must be involved with coc</li>
-            </ul>
+            <div className="restrictions">
+                <div className="subtitle">Restrictions</div>
+                <ul>
+                    {(result.shelter.restrictions.length > 0) ? (
+                        result.shelter.restrictions.map((restriction) => <li>{restriction}</li>)
+                    ) : (
+                        <li>no known restrictions</li>
+                    )}
+                </ul>
+            </div>
         </div>
-    </div>
+    )
+}
 
 export default SearchResults
 
