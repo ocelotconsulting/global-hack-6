@@ -4,6 +4,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import App from './App'
 import {BedFinder} from './bed-finder'
 import Authentication from './Authentication'
+import Admin from './admin/Admin'
 import AuthService from './auth/AuthService'
 
 const auth = new AuthService('AkO3gnKJqhHFE6Be6xiWfINFdYbF95qH', 'larry.auth0.com')
@@ -29,7 +30,10 @@ const routes =
     <Route path="/" component={AppWrapper}>
       <IndexRoute component={Dashboard}/>
       <Route path="bed" component={BedFinder} onEnter={requireAuth}/>
+      <Route path="/bed/results" component={Results} onEnter={requireAuth}/>
+      <Route path="/bed/reserve" component={Reserve} onEnter={requireAuth}/>
       <Route path="auth" component={AuthenticationWrapper} onEnter={requireAuth}/>
+      <Route path='admin' component={Admin} onEnter={requireAuth}/>
     </Route>
   </Router>
 

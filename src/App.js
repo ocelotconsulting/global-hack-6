@@ -1,4 +1,3 @@
-// noinspection JSUnusedLocalSymbols
 import React, {PropTypes as T} from 'react'
 import AuthService from './auth/AuthService'
 import Navigation from './Navigation'
@@ -9,8 +8,7 @@ export default class App extends React.Component {
   }
 
   static propTypes = {
-    location: T.object,
-    children: T.object,
+    children: T.node,
     auth: T.instanceOf(AuthService)
   }
 

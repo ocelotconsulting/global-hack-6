@@ -10,6 +10,7 @@ app.use('/services', require('./services/api'))
 app.use('/import', require('./services/import'))
 
 app.use('/font-awesome', express.static('node_modules/font-awesome'))
+app.use('/chartist', express.static('node_modules/chartist'))
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('DEV mode')
