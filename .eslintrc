@@ -9,7 +9,8 @@
     "no-console": 0,
     "spaced-comment": 0,
     "space-before-function-paren": 0,
-    "no-return-assign": 0
+    "no-return-assign": 0,
+    "react/prop-types": 0
   },
   "extends": [
     "eslint:recommended",
