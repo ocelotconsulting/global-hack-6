@@ -20,10 +20,19 @@ class BedFinder extends React.Component {
         this.setState({showWaitTicker: true})
 
         navigator.geolocation.getCurrentPosition((position) => {
-            const data = {
+            let data = {
                 lat: position.coords.latitude,
                 long: position.coords.longitude,
                 people: counts
+            }
+            if (location.hostname == 'localhost') {
+                // no need to tax our google API calls when we're always calling from the same place
+                // this will let the server side cache work well
+                data = {
+                    lat: 38.632351,
+                    long: -90.228033,
+                    people: counts
+                }
             }
             this.setState({
                 position: position.coords
