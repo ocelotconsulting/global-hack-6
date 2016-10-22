@@ -34,7 +34,7 @@ const SearchResult = ({result, bedsRequested, reserve, details}) => {
             <div className="details">
                 <ul>
                     <li>{result.distance.walking.distance.text} ({result.distance.walking.duration.text} walking)</li>
-                    <li>{matches ? 'currently has enough open beds' : 'unlikely match'}</li>
+                    <li>{matches ? <div className="open-beds">currently has enough open beds</div> : 'unlikely match'}</li>
                     <li>{closingMessage}</li>
                 </ul>
             </div>
