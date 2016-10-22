@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 
 const BedFinder = () =>
     <div className="bed-finder">
-        <div className="title">Find a Bed</div>
+        <div className="title">Find Beds</div>
         <div className="input-row">
             <div className="btn-group" role="group" aria-label="...">
                 <button type="button" className="btn btn-default">-</button>
@@ -25,7 +25,14 @@ const BedFinder = () =>
             </div>
             0 Children
         </div>
-        <button className="btn btn-primary">Find Bed</button>
+        <div className="input-row">
+            <div className="btn-group" role="group" aria-label="...">
+                <button type="button" className="btn btn-default">-</button>
+                <button type="button" className="btn btn-default">+</button>
+            </div>
+            0 Infants
+        </div>
+        <button className="btn btn-primary">Find Beds</button>
     </div>
 
 const Results = () => {
@@ -39,6 +46,9 @@ const Results = () => {
                 <div className="title">Open Beds Nearby</div>
                 <div>
                     {results.map((result) => <SearchResult key={result.id} result={result}/>)}
+                </div>
+                <div className="result">
+                    <a href="">notifications of new openings</a>
                 </div>
             </div>
         )
@@ -65,5 +75,18 @@ const SearchResult = ({result}) =>
         </div>
     </div>
 
-export {BedFinder, Results}
+const Reserve = () =>
+    <div className="register-bed">
+        <div className="title">Confirm Reservation</div>
+        <form>
+            <div className="form-group">
+                <label>Name</label>
+                <input className="form-control" placeholder="optional"/>
+            </div>
+            <button className="btn btn-primary">Confirm</button>
+            <div style={{display: 'none'}} className="alert alert-warning" role="alert"></div>
+        </form>
+    </div>
+
+export {BedFinder, Results, Reserve}
 
