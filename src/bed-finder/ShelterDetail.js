@@ -1,7 +1,8 @@
 import React from "react";
 import {render} from "react-dom";
+import Map from './Map'
 
-const ShelterDetail = ({shelter, requestNotification, shelterLocation}) => {
+const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocation}) => {
     function notify(e) {
         e.preventDefault()
         requestNotification(shelter.id)
@@ -18,7 +19,7 @@ const ShelterDetail = ({shelter, requestNotification, shelterLocation}) => {
                 <div>{shelter.city} {shelter.county}</div>
                 <div>{shelter.contact.phone}</div>
             </div>
-            <div className="map">map goes here</div>
+            <Map myLocation={myLocation} shelterAddress={`${shelter.street}, ${shelter.city}, ${shelter.state}`}/>
             <ul className="detail">
                 <li>{shelterLocation.walking.distance.text}</li>
                 <li>{shelterLocation.walking.duration.text}</li>

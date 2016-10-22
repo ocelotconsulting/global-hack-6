@@ -25,6 +25,9 @@ class BedFinder extends React.Component {
                 long: position.coords.longitude,
                 people: counts
             }
+            this.setState({
+                position: position.coords
+            })
             agent.post('/services/shelters')
                 .send(data)
                 .then((res) => {
@@ -73,7 +76,7 @@ class BedFinder extends React.Component {
             case 'reserve':
                 return <Reserve/>;
             case 'shelter-detail':
-                return <ShelterDetail shelter={this.state.shelterDetail} shelterLocation={this.getLocation(this.state.shelterDetail)} requestNotification={() => this.moveTo('enter-phone')}/>;
+                return <ShelterDetail shelter={this.state.shelterDetail} myLocation={this.state.position} shelterLocation={this.getLocation(this.state.shelterDetail)} requestNotification={() => this.moveTo('enter-phone')}/>;
             case 'enter-phone':
                 return <SubmitPhone requestNotification={(id) => this.notifyWhenShelterIsAvailable(id)}/>;
             default:

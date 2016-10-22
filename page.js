@@ -1,4 +1,5 @@
 const title = 'Ocelot Consulting Global Hack VI'
+const googleMapsApiKey = 'AIzaSyAxVaHXZxWdgkByrq8ALNmH8PJBVSzhwXc'
 
 module.exports = `
 <!DOCTYPE html>
@@ -14,7 +15,8 @@ module.exports = `
 </head>
 <body>
   <div id="main"></div>
-  <script type="text/javascript" src="/bundle.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}" charset="utf-8"></script>
+    <script type="text/javascript" src="/bundle.js" charset="utf-8"></script>
 </body>
 </html>
 `
