@@ -30,8 +30,6 @@ const routes =
     <Route path="/" component={AppWrapper}>
       <IndexRoute component={Dashboard}/>
       <Route path="bed" component={BedFinder} onEnter={requireAuth}/>
-      <Route path="/bed/results" component={Results} onEnter={requireAuth}/>
-      <Route path="/bed/reserve" component={Reserve} onEnter={requireAuth}/>
       <Route path="auth" component={AuthenticationWrapper} onEnter={requireAuth}/>
       <Route path='admin' component={Admin} onEnter={requireAuth}/>
     </Route>
