@@ -6,6 +6,7 @@ const router = express.Router()
 
 // example service
 const timeFormat = 'YYYY-MMM-DD hh:mm:ss A Z'
+
 router.get('/now', (req, res, next) => {
   agent.get('http://www.timeapi.org/utc/now')
   .accept('json')

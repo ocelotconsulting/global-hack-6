@@ -7,7 +7,7 @@ app.get('/health', (req, res) => res.json({ ok: true }))
 
 app.use('/services', require('./services/api'))
 
-// app.use('/import', require('./services/import'))
+app.use('/import', require('./services/import'))
 
 app.use('/font-awesome', express.static('node_modules/font-awesome'))
 
