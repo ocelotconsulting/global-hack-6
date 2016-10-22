@@ -1,6 +1,9 @@
 import React from 'react'
 import Shelters from './Shelters'
 import ShelterSummary from './ShelterSummary'
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
+import ButtonGroup from 'react-bootstrap/lib/ButtonGroup'
+import { Link } from 'react-router'
 
 const shelterSummaryProps = {
   name: 'Biddle House',
@@ -19,12 +22,17 @@ export default class Admin extends React.Component {
   }
 
   render() {
-    const onChange = (propertyName) => (option) => this.setState({shelter: option && option.value})
+    const onChange = (propertyName) => (option) => this.setState({ shelter: option && option.value })
 
     return (
       <div className='admin container'>
         <Shelters value={this.state.shelter} onChange={onChange('shelter')}/>
         <ShelterSummary {...shelterSummaryProps}/>
+        <ButtonToolbar>
+          <ButtonGroup>
+            <Link to="/admin/check-in" className='btn btn-primary'>Check In</Link>
+          </ButtonGroup>
+        </ButtonToolbar>
       </div>
     )
   }

@@ -2,28 +2,31 @@ const agent = require('../src/agent')
 const distance = require('./distance')
 const { couchUrl } = require('./config')
 
-const get = () => {
-  return agent.get(`${couchUrl}/shelters/_all_docs?include_docs=true`)
-  .then(({ body }) => body)
-}
+const get = () =>
+  agent.get(`${couchUrl}/shelters/_all_docs?include_docs=true`)
+  .then(({ body: { rows } }) =>
+    rows.map(({ doc }) => doc)
+  )
 
-const findClose = ({origin}) => {
-  return Promise.resolve()
-  .then(get)
-  .then(({rows}) => {
-    const distances = rows.map((row) => {
-      const shelterAddress = `${row.doc.street}, ${row.doc.city}, ${row.doc.state}, ${row.doc.zip}`
-      return distance({origin: origin, destination: shelterAddress})
-      .then((result) => {
+exports.get = get
+
+exports.findClose = ({ origin }) => {
+  get()
+  .then(docs => {
+    const distances = docs.map(doc => {
+      const shelterAddress = `${doc.street}, ${doc.city}, ${doc.state}, ${doc.zip}`
+      return distance({ origin, destination: shelterAddress })
+      .then(result => {
         return {
           shelter: {
-            name: row.doc.name,
+            name: doc.name,
             address: shelterAddress,
-            contact: row.doc.contact,
-            open_beds: row.doc.beds.total,
-            hours_for_intake: row.doc.hours_for_intake,
-            restrictions: row.doc.restrictions
-          }, distance: {
+            contact: doc.contact,
+            open_beds: doc.beds.total,
+            hours_for_intake: doc.hours_for_intake,
+            restrictions: doc.restrictions
+          },
+          distance: {
             walking: result.rows[0].elements[0]
           }
         }
@@ -31,9 +34,4 @@ const findClose = ({origin}) => {
     })
     return Promise.all(distances)
   })
-}
-
-module.exports = {
-  get: get,
-  findClose: findClose
 }

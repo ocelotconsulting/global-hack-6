@@ -2,9 +2,10 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import App from './App'
-import {BedFinder} from './bed-finder'
+import { BedFinder } from './bed-finder'
 import Authentication from './Authentication'
 import Admin from './admin/Admin'
+import Checkin from './admin/Checkin'
 import AuthService from './auth/AuthService'
 import {Clients, FindClient, RegisterClient} from './clients'
 
@@ -16,7 +17,7 @@ const AuthenticationWrapper = () => <Authentication auth={auth}/>
 const requireAuth = (nextState, replace) => {
   auth.parseAuthHash(nextState.location.hash)
   if (!auth.loggedIn()) {
-    replace({pathname: '/'})
+    replace({ pathname: '/' })
   }
 }
 
@@ -37,6 +38,7 @@ const routes =
       <Route path='bed' component={BedFinder} onEnter={requireAuth}/>
       <Route path='auth' component={AuthenticationWrapper} onEnter={requireAuth}/>
       <Route path='admin' component={Admin} onEnter={requireAuth}/>
+      <Route path='admin/check-in' component={Checkin} onEnter={requireAuth}/>
     </Route>
   </Router>
 

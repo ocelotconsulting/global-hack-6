@@ -24,7 +24,7 @@ export default class Shelters extends React.Component {
           <Col componentClass={ControlLabel} sm={2}>
             Find Location
           </Col>
-          <Col sm={10}>
+          <Col sm={4}>
             <Select.Async value={this.props.value} onChange={this.props.onChange}
                           loadOptions={loadOptions}/>
           </Col>

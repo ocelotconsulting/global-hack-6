@@ -18,7 +18,13 @@ router.get('/now', (req, res, next) => {
 
 router.use('/clients', clients)
 
-router.post('/shelters/', (req, res, next) => {
+router.get('/shelters', (req, res, next) =>
+  shelters.get()
+  .then(rows => res.json(rows))
+  .catch(next)
+)
+
+router.post('/shelters', (req, res, next) => {
   console.log('searching shelters with a body of: ', req.body)
   const expectedBody = {
     lat: 38.628551,
@@ -33,13 +39,11 @@ router.post('/shelters/', (req, res, next) => {
   shelters.findClose({
     origin: `${expectedBody.lat}, ${expectedBody.long}`
   })
-  .then((response) => {
-    return res.json(response)
-  })
-  .catch((err) => res.json(err))
+  .then(response => res.json(response))
+  .catch(next)
 })
 
-router.use('/*', (req, res, next) => {
+router.use('/*', (req, res) => {
   res.status(404).send('Route not found')
 })
 
