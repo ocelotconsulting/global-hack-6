@@ -1,5 +1,6 @@
 import React from "react";
 import {render} from "react-dom";
+import agent from "../agent";
 
 class SubmitCounts extends React.Component {
     constructor(props) {
@@ -18,8 +19,16 @@ class SubmitCounts extends React.Component {
             newState[field] = 0
         this.setState(newState)
     }
+    submitDisabled() {
+        return (
+            this.state.men == 0 &&
+            this.state.women == 0 &&
+            this.state.children == 0 &&
+            this.state.infants == 0
+        )
+    }
     render() {
-        const {moveForward} = this.props
+        const {submitCounts} = this.props
         return <div className="bed-finder">
             <div className="title">Find Beds</div>
 
@@ -33,10 +42,10 @@ class SubmitCounts extends React.Component {
 
             <div className="input-row">
                 <div className="btn-group" role="group" aria-label="...">
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('woman', -1)}>-</button>
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('woman', +1)}>+</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', -1)}>-</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', +1)}>+</button>
                 </div>
-                {this.state.woman} Adult Females
+                {this.state.women} Adult Females
             </div>
 
             <div className="input-row">
@@ -55,7 +64,7 @@ class SubmitCounts extends React.Component {
                 {this.state.infants} Infants
             </div>
 
-            <button className="btn btn-primary" onClick={moveForward}>Find Beds</button>
+            <button className="btn btn-primary" onClick={() => submitCounts(this.state)} disabled={this.submitDisabled()}>Find Beds</button>
         </div>
     }
 }
@@ -122,10 +131,21 @@ class BedFinder extends React.Component {
         }
     }
 
-    submitCounts() {
+    submitCounts(counts) {
         this.setState({showWaitTicker: true})
-        setTimeout((() => this.moveTo('searchResults')), 3000)
 
+        navigator.geolocation.getCurrentPosition((position) => {
+            const data = {
+                lat: position.coords.latitude,
+                long: position.coords.longitude,
+                people: counts
+            }
+            agent.post('/services/shelters')
+                .send(data)
+                .then((res) => console.log(res))
+            console.log(data)
+            this.moveTo('searchResults')
+        });
     }
 
     moveTo(step) {
@@ -143,7 +163,7 @@ class BedFinder extends React.Component {
     getBody() {
         switch (this.state.step) {
             case 'submitCounts':
-                return <SubmitCounts moveForward={() => this.submitCounts()}/>;
+                return <SubmitCounts submitCounts={(counts) => this.submitCounts(counts)}/>;
             case 'searchResults':
                 return <SearchResults reserve={(id) => this.reserve(id)}/>;
             case 'reserve':

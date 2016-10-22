@@ -11,22 +11,22 @@ const findClose = ({origin}) => {
   return Promise.resolve()
   .then(get)
   .then(({rows}) => {
-    console.log('rows', rows)
     const distances = rows.map((row) => {
       const shelterAddress = `${row.doc.street}, ${row.doc.city}, ${row.doc.state}, ${row.doc.zip}`
       return distance({origin: origin, destination: shelterAddress})
       .then((result) => {
-        console.log(result)
         return {
           shelter: {
             name: row.doc.name,
             address: shelterAddress,
             contact: row.doc.contact,
             open_beds: row.doc.beds.total,
-            hours_for_intake: row.doc.hours_for_intake
-        }, distance: {
-          walking: result.rows[0].elements[0]
-        }}
+            hours_for_intake: row.doc.hours_for_intake,
+            restrictions: row.doc.restrictions
+          }, distance: {
+            walking: result.rows[0].elements[0]
+          }
+        }
       })
     })
     return Promise.all(distances)
