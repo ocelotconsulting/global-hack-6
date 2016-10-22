@@ -1,13 +1,13 @@
 const getAll = require('./getAll')
 const distance = require('../distance')
 
-exports.findClose = ({ origin }) => {
+module.exports = ({ origin }) => {
   return getAll()
   .then(docs => {
     const distances = docs.map(doc => {
       const shelterAddress = `${doc.street}, ${doc.city}, ${doc.state}, ${doc.zip}`
 
-      const getAvailableBedCountByType = (doc, type) => {
+      const getAvailableBedCountByType = (type) => {
         let bedsAvailable = 0
         console.log('got a doc', doc)
         const matchingBeds = doc.beds.filter(bed => bed.who.indexOf(type) >= 0)
