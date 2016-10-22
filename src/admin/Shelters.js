@@ -46,7 +46,7 @@ export default class Shelters extends React.Component {
               Find shelter
             </Col>
             <Col sm={5} md={6} lg={8}>
-              <Select value={value} options={options} onChange={handleSelection}/>
+              <Select value={value} options={options} onChange={handleSelection} clearable={false}/>
             </Col>
           </FormGroup>
         </Form>

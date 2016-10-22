@@ -1,6 +1,7 @@
 /* eslint camelcase: "off" */
 import React from 'react'
 import moment from 'moment'
+import FadeIn from '../FadeIn'
 import ShelterSummary from './ShelterSummary'
 import ShelterDetails from './ShelterDetails'
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
@@ -34,7 +35,7 @@ export default class Shelter extends React.Component {
     }
 
     return (
-      <div className='shelter'>
+      <FadeIn className='shelter' context={shelter.id}>
         <ShelterSummary {...shelterSummaryProps}/>
         <ShelterDetails {...shelter}/>
         <ButtonToolbar>
@@ -42,7 +43,7 @@ export default class Shelter extends React.Component {
             <Link to="/admin/check-in" className='btn btn-primary'>Check In Client</Link>
           </ButtonGroup>
         </ButtonToolbar>
-      </div>
+      </FadeIn>
     )
   }
 }

@@ -13,15 +13,22 @@
 @import "clients/styles";
 
 .spinner {
-    background-image: url(/spinner.gif);
-    height: 50px;
-    width: 50px;
-    background-size: 50px;
-    margin: 0 auto;
-    margin-top: 75px;
-    position: absolute;
-    z-index: 100;
-    right: 0;
-    left: 0;
+  background-image: url(/spinner.gif);
+  height: 50px;
+  width: 50px;
+  background-size: 50px;
+  margin: 0 auto;
+  margin-top: 75px;
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  left: 0;
 }
 
+.fade-in {
+  opacity: 0;
+  &.active {
+    opacity: 1;
+    transition: opacity .2s ease-in;
+  }
+}
