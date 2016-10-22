@@ -12,6 +12,7 @@ module.exports = `
   <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/chartist/dist/chartist.min.css">
   <link rel="stylesheet" type="text/css" href="/styles.css">
+  <link rel="apple-touch-icon" href="/logo.png">
 </head>
 <body>
   <div id="main"></div>
