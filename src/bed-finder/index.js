@@ -141,7 +141,7 @@ class BedFinder extends React.Component {
                 people: counts
             }
             agent.post('/services/shelters')
-                .submit(data)
+                .send(data)
                 .then((res) => console.log(res))
             console.log(data)
             this.moveTo('searchResults')
