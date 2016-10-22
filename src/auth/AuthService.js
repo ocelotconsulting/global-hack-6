@@ -14,7 +14,14 @@ export default class AuthService extends EventEmitter {
         icon: 'http://cdn-img.easyicon.net/png/5615/561593.gif', // optional
         // only accept addresses with more than 10 chars
         validator: (value) => value.length > 10
-      }]
+      }],
+      languageDictionary: {
+        title: 'Hack Homeless'
+      },
+      theme: {
+        logo: 'https://www.ccstl.org/wp-content/uploads/2014/08/stpatrickcntr_logo.png',
+        primaryColor: 'green'
+      }
     })
     this.domain = domain
     this.clientID = clientId
