@@ -18,12 +18,22 @@ router.get('/now', (req, res, next) => {
 
 router.use('/clients', clients)
 
-router.get('/shelters/', (req, res, next) => {
+router.post('/shelters/', (req, res, next) => {
+  console.log('searching shelters with a body of: ', req.body)
+  const expectedBody = {
+    lat: 38.628551,
+    long: -90.197504,
+    people: {
+      men: 0,
+      women: 1,
+      children: 0,
+      infants: 1
+    }
+  }
   shelters.findClose({
-    origin: '3264 Olive St, St. Louis, MO, 63103'
+    origin: `${expectedBody.lat}, ${expectedBody.long}`
   })
   .then((response) => {
-    console.log(response)
     return res.json(response)
   })
   .catch((err) => res.json(err))
