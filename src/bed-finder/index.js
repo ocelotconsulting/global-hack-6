@@ -67,9 +67,10 @@ class BedFinder extends React.Component {
             })
     }
 
-    notifyWhenShelterIsAvailable(shelterId) {
+    notifyWhenShelterIsAvailable(shelterId, phone) {
         console.log('send notification when shelter is available', shelterId)
-        this.moveTo('shelter-detail')
+        agent.post(`/services/notifications/subscribe?shelterId=${shelterId}&phone=${phone}`)
+        .then((results) => {this.moveTo('shelter-detail')})
     }
 
     getLocation(shelter) {
@@ -87,7 +88,7 @@ class BedFinder extends React.Component {
             case 'shelter-detail':
                 return <ShelterDetail shelter={this.state.shelterDetail} myLocation={this.state.position} shelterLocation={this.getLocation(this.state.shelterDetail)} requestNotification={() => this.moveTo('enter-phone')}/>;
             case 'enter-phone':
-                return <SubmitPhone requestNotification={(id) => this.notifyWhenShelterIsAvailable(id)}/>;
+                return <SubmitPhone shelter={this.state.shelterDetail} requestNotification={(id, phone) => this.notifyWhenShelterIsAvailable(id, phone)}/>;
             default:
                 return <SubmitCounts/>;
         }
@@ -103,4 +104,3 @@ class BedFinder extends React.Component {
 
 
 export {BedFinder}
-

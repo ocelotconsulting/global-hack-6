@@ -1,9 +1,5 @@
-const agent = require('../../src/agent')
-const { couchUrl } = require('../config')
+const getAll = require('./getAll')
 
 module.exports = (id) =>
-  agent.get(`${couchUrl}/shelters/${encodeURIComponent(id)}`)
-  .then(({ body }) => body)
-  .catch(error => {
-    if (error.status !== 404) throw error
-  })
+  getAll({ key: JSON.stringify(id) })
+  .then(([result]) => result)
