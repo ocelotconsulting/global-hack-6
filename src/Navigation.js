@@ -1,5 +1,6 @@
 // noinspection JSUnusedLocalSymbols
 import React from 'react'
+import {Link} from 'react-router'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Row, Col } from 'react-bootstrap'
 
 export default class Navigation extends React.Component {
@@ -19,21 +20,22 @@ export default class Navigation extends React.Component {
           <Navbar inverse>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="#">GlobalHack 6</a>
+                <Link to='/'>GlobalHack 6</Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav>
-                <NavItem eventKey={1} href="#">Link</NavItem>
-                <NavItem eventKey={2} href="#">Link</NavItem>
-                <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+                <li><Link to='/bed'>Beds</Link></li>
+                <li><Link to='/admin'>Admin</Link></li>
+                <li><Link to='/clients'>Clients</Link></li>
+                {/* <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
                   <MenuItem eventKey={3.1}>Action</MenuItem>
                   <MenuItem eventKey={3.2}>Another action</MenuItem>
                   <MenuItem eventKey={3.3}>Something else here</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey={3.3}>Separated link</MenuItem>
-                </NavDropdown>
+                </NavDropdown> */}
               </Nav>
               <Nav pullRight>
                 {loginOrUser()}

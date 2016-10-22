@@ -62,7 +62,10 @@ class FindClient extends React.Component {
           this.getUsers(this.state.q)
         }
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error)
+        this.setState({queryRunning: false})
+      })
     }
   }
   handleChange (e) {
@@ -78,7 +81,6 @@ class FindClient extends React.Component {
   render () {
     const handleChange = (e) => this.handleChange(e)
     const mapQueryResults = (x, i) => this.mapQueryResults(x, i)
-    console.log(this.state)
     return (
       <div className='container-fluid'>
         <Row>
