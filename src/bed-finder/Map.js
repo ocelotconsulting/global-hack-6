@@ -7,14 +7,14 @@ const mapStyle = {
     border: '1px solid black'
 }
 
-const center = {
-    lat: 38.632351,
-    lng: -90.228033
-}
-
 export default class Map extends React.Component {
     componentDidMount() {
-        this.map = new google.maps.Map(this.refs.map, { center, zoom: 16 })
+        const center = {
+            lat: this.props.shelterLocation.lat,
+            lng: this.props.shelterLocation.long
+        }
+        this.map = new google.maps.Map(this.refs.map, {center, zoom: 16 })
+        const marker = new google.maps.Marker({ position: center, map: this.map})
     }
 
     render() {

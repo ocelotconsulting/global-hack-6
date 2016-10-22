@@ -9,8 +9,6 @@ const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocatio
     }
 
     console.log(shelter)
-    console.log(shelterLocation)
-
     return (
         <div className="shelter-detail">
             <div className="title">{shelter.name}</div>
@@ -19,7 +17,7 @@ const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocatio
                 <div>{shelter.city} {shelter.county}</div>
                 <div>{shelter.contact.phone}</div>
             </div>
-            <Map myLocation={myLocation} shelterAddress={`${shelter.street}, ${shelter.city}, ${shelter.state}`}/>
+            <Map myLocation={myLocation} shelterLocation={shelter}/>
             <ul className="detail">
                 <li>{shelterLocation.walking.distance.text}</li>
                 <li>{shelterLocation.walking.duration.text}</li>
