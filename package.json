@@ -5,10 +5,9 @@
   "description": "Ocelot Consulting Project for Global Hack VI",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf public",
     "dev": "NODE_ENV=development supervisor -w server.js,page.js,services node server",
     "build-less": "lessc --clean-css src/styles.less public/styles.css",
-    "build": "npm run clean && npm run build-less && NODE_ENV=production webpack",
+    "build": "npm run build-less && NODE_ENV=production webpack",
     "start": "NODE_ENV=production node server",
     "test": "mocha",
     "test:dev": "mocha -w"
