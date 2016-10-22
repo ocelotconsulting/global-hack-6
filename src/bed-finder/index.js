@@ -37,7 +37,7 @@ class SubmitCounts extends React.Component {
                     <button type="button" className="btn btn-default" onClick={() => this.changeCount('men', -1)}>-</button>
                     <button type="button" className="btn btn-default" onClick={() => this.changeCount('men', +1)}>+</button>
                 </div>
-                {this.state.men} Adult Males
+                {this.state.men} Adult {this.state.men == 1 ? 'Man' : 'Men'}
             </div>
 
             <div className="input-row">
@@ -45,7 +45,7 @@ class SubmitCounts extends React.Component {
                     <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', -1)}>-</button>
                     <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', +1)}>+</button>
                 </div>
-                {this.state.women} Adult Females
+                {this.state.women} Adult {this.state.women == 1 ? 'Woman' : 'Women'}
             </div>
 
             <div className="input-row">
@@ -53,7 +53,7 @@ class SubmitCounts extends React.Component {
                     <button type="button" className="btn btn-default" onClick={() => this.changeCount('children', -1)}>-</button>
                     <button type="button" className="btn btn-default" onClick={() => this.changeCount('children', +1)}>+</button>
                 </div>
-                {this.state.children} Children
+                {this.state.children} {this.state.children == 1 ? 'Child' : 'Children'}
             </div>
 
             <div className="input-row">
@@ -61,7 +61,7 @@ class SubmitCounts extends React.Component {
                     <button type="button" className="btn btn-default" onClick={() => this.changeCount('infants', -1)}>-</button>
                     <button type="button" className="btn btn-default" onClick={() => this.changeCount('infants', +1)}>+</button>
                 </div>
-                {this.state.infants} Infants
+                {this.state.infants} {this.state.infants == 1 ? 'Infant' : 'Infants'}
             </div>
 
             <button className="btn btn-primary" onClick={() => submitCounts(this.state)} disabled={this.submitDisabled()}>Find Beds</button>
