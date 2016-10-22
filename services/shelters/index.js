@@ -17,7 +17,8 @@ router.get('/:id', ({ params: { id } }, res, next) =>
 )
 
 router.post('/', (req, res, next) => {
-  findClose({ origin: `${req.body.lat}, ${req.body.long}` })
+  console.log `searching for beds at ${req.body.lat}, ${req.body.long}`
+  return findClose({ origin: `${req.body.lat}, ${req.body.long}` })
   .then(response => res.json(response))
   .catch(next)
 })
