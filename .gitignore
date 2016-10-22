@@ -42,3 +42,5 @@ jspm_packages
 
 # Since we're not using yarn this weekend
 yarn.lock
+
+*.iml
