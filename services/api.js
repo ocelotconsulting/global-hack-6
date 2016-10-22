@@ -3,6 +3,7 @@ const agent = require('../src/agent')
 const moment = require('moment')
 const clients = require('./clients')
 const shelters = require('./shelters')
+const texting = require('./texting')
 
 const router = express.Router()
 
@@ -16,15 +17,11 @@ router.get('/now', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/texting', texting)
+
 router.use('/clients', clients)
 
-router.get('/shelters', (req, res, next) =>
-  shelters.get()
-  .then(rows => res.json(rows))
-  .catch(next)
-)
-
-router.post('/shelters', (req, res, next) => {
+router.post('/shelters/', (req, res, next) => {
   console.log('searching shelters with a body of: ', req.body)
   const expectedBody = {
     lat: 38.628551,
@@ -39,11 +36,13 @@ router.post('/shelters', (req, res, next) => {
   shelters.findClose({
     origin: `${expectedBody.lat}, ${expectedBody.long}`
   })
-  .then(response => res.json(response))
-  .catch(next)
+  .then((response) => {
+    return res.json(response)
+  })
+  .catch((err) => res.json(err))
 })
 
-router.use('/*', (req, res) => {
+router.use('/*', (req, res, next) => {
   res.status(404).send('Route not found')
 })
 
