@@ -18,6 +18,14 @@ class SubmitCounts extends React.Component {
             newState[field] = 0
         this.setState(newState)
     }
+    submitDisabled() {
+        return (
+            this.state.men == 0 &&
+            this.state.women == 0 &&
+            this.state.children == 0 &&
+            this.state.infants == 0
+        )
+    }
     render() {
         const {moveForward} = this.props
         return <div className="bed-finder">
@@ -33,10 +41,10 @@ class SubmitCounts extends React.Component {
 
             <div className="input-row">
                 <div className="btn-group" role="group" aria-label="...">
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('woman', -1)}>-</button>
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('woman', +1)}>+</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', -1)}>-</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', +1)}>+</button>
                 </div>
-                {this.state.woman} Adult Females
+                {this.state.women} Adult Females
             </div>
 
             <div className="input-row">
@@ -55,7 +63,7 @@ class SubmitCounts extends React.Component {
                 {this.state.infants} Infants
             </div>
 
-            <button className="btn btn-primary" onClick={moveForward}>Find Beds</button>
+            <button className="btn btn-primary" onClick={moveForward} disabled={this.submitDisabled()}>Find Beds</button>
         </div>
     }
 }
