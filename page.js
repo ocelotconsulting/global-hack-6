@@ -1,4 +1,4 @@
-const title = 'Example Project'
+const title = 'Ocelot Consulting Global Hack VI'
 
 module.exports = `
 <!DOCTYPE html>
