@@ -1,4 +1,3 @@
-const express = require('express')
 const mango = require('./mango')
 
 const shelterMango = (shelterId) => ({
@@ -13,8 +12,8 @@ const shelterMango = (shelterId) => ({
   fields: ['_id', 'sns-topic']
 })
 
-const getTopic = (req, res, next) =>
- mango('shelters', shelterMango(req.query.shelterId))
-  .then((shelters) => res.json(shelters))
+const getTopic = (shelterId) =>
+ mango('shelters', shelterMango(shelterId))
+  .then((shelters) => shelters[0]['sns-topic'])
 
 module.exports = getTopic

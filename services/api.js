@@ -3,7 +3,7 @@ const agent = require('../src/agent')
 const moment = require('moment')
 const clients = require('./clients')
 const shelters = require('./shelters')
-const texting = require('./texting')
+const snsSubscribe = require('./snsSubscribe')
 
 const router = express.Router()
 
@@ -17,7 +17,7 @@ router.get('/now', (req, res, next) => {
   .catch(next)
 })
 
-router.get('/texting', texting)
+router.post('/subscribe', snsSubscribe)
 
 router.use('/clients', clients)
 
