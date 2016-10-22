@@ -13,6 +13,7 @@ const auth = new AuthService('AkO3gnKJqhHFE6Be6xiWfINFdYbF95qH', 'larry.auth0.co
 
 const AppWrapper = (props) => <App auth={auth} children={props.children}/>
 const AuthenticationWrapper = () => <Authentication auth={auth}/>
+const NotFound = (props) => <h1>404 - Not Found</h1>
 
 const requireAuth = (nextState, replace) => {
   auth.parseAuthHash(nextState.location.hash)
@@ -22,7 +23,7 @@ const requireAuth = (nextState, replace) => {
 }
 
 const Dashboard = React.createClass({
-  render() {
+  render () {
     return <div>Welcome to the app!</div>
   }
 })
@@ -41,6 +42,7 @@ const routes =
         <Route path=':shelterId' component={Shelter}/>
       </Route>
     </Route>
+    <Route path='*' component={NotFound}/>
   </Router>
 
 render(routes, document.getElementById('main'))
