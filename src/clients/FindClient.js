@@ -28,7 +28,8 @@ class FindClient extends React.Component {
       })
       agent.get('/services/clients')
       .query({q: q})
-      .then(({body}) => {
+      .then(({body = []}) => {
+        console.log(body[0])
         this.setState({
           lastQ: q,
           queryResutls: body,

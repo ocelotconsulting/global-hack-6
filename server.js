@@ -22,7 +22,8 @@ if (process.env.NODE_ENV !== 'production') {
   const middlewareOptions = {
     stats: {
       colors: true
-    }
+    },
+    noInfo: true
   }
   app.use(devMiddleware(webpack(require('./webpack.dev.config')), middlewareOptions))
   app.use(require('less-middleware')('src', { dest: 'public' }))
