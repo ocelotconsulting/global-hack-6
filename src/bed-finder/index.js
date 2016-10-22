@@ -116,11 +116,23 @@ const Reserve = () =>
 class BedFinder extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {step: 'submitCounts'}
+        this.state = {
+            showWaitTicker: false,
+            step: 'submitCounts'
+        }
+    }
+
+    submitCounts() {
+        this.setState({showWaitTicker: true})
+        setTimeout((() => this.moveTo('searchResults')), 3000)
+
     }
 
     moveTo(step) {
-        this.setState({step: step})
+        this.setState({
+            showWaitTicker: false,
+            step: step
+        })
     }
 
     reserve(shelterId) {
@@ -128,17 +140,25 @@ class BedFinder extends React.Component {
         this.moveTo('reserve')
     }
 
-    render() {
+    getBody() {
         switch (this.state.step) {
             case 'submitCounts':
-                return <SubmitCounts moveForward={() => this.moveTo('searchResults')}/>;
+                return <SubmitCounts moveForward={() => this.submitCounts()}/>;
             case 'searchResults':
                 return <SearchResults reserve={(id) => this.reserve(id)}/>;
             case 'reserve':
                 return <Reserve/>;
             default:
                 return <SubmitCounts/>;
+
         }
+    }
+
+    render() {
+        return <div>
+            { this.state.showWaitTicker ? <div className="spinner"/> : '' }
+            {this.getBody()}
+        </div>
     }
 }
 
