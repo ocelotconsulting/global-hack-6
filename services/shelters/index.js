@@ -12,7 +12,7 @@ router.get('/', (req, res, next) =>
 
 router.get('/:id', ({ params: { id } }, res, next) =>
   getById(id)
-  .then(shelter => res.json(shelter))
+  .then(shelter => shelter ? res.json(shelter) : res.status(404).send('not found'))
   .catch(next)
 )
 
