@@ -33,9 +33,18 @@ export default class Navigation extends React.Component {
             <Navbar.Collapse>
               <Nav>
                 <NavItem eventKey={1} href="/bed">Find Beds</NavItem>
-                <NavItem eventKey={1} href="/clients/locate">Find Client</NavItem>
-                <NavItem eventKey={1} href="/clients/register">Register Client</NavItem>
-                <NavItem eventKey={1} href="/admin">Check in Client</NavItem>
+                <NavItem eventKey={1} href="/clients/locate">
+                  <i className='fa fa-lock'/>
+                  {' Find Client'}
+                </NavItem>
+                <NavItem eventKey={1} href="/clients/register">
+                  <i className='fa fa-lock'/>
+                  {' Register Client'}
+                </NavItem>
+                <NavItem eventKey={1} href="/admin">
+                  <i className='fa fa-lock'/>
+                  {' Check in Client'}
+                </NavItem>
               </Nav>
               <Nav pullRight>
                 {loginOrUser()}
