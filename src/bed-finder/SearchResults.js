@@ -16,7 +16,7 @@ const SearchResults = ({bedsRequested, searchResults, reserve, details}) => {
 
 const SearchResult = ({result, bedsRequested, reserve, details}) => {
     const closing = moment(result.shelter.hours_for_intake.closed, "HHmm")
-    const closingMessage = closing.isValid() ? `registration closes at ${closing.fromNow()}` : 'registration closing time unknown'
+    const closingMessage = closing.isValid() ? `registration closes ${closing.fromNow()}` : 'registration closing time unknown'
     let matches = true
     _(bedsRequested).pairs().forEach(([key, val]) => {
         if (val > 0) {
