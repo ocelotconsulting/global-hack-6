@@ -21,6 +21,17 @@
             width: 100%;
         }
     }
+    @media (min-width: @screen-sm-min) {
+        .title {
+            margin-bottom: 6px;
+        }
+        width: 600px;
+        margin: 0 auto;
+        margin-top: 14px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 24px;
+    }
 }
 
 .bed-finder-results {
@@ -61,6 +72,26 @@
                 list-style: none;
                 padding-left: 9px;
                 font-size: 80%;
+            }
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        width: 600px;
+        margin: 0 auto;
+        .result {
+            .details {
+                ul {
+                    font-size: 100%;
+                }
+            }
+            .restrictions {
+                font-size: 100%;
+                ul {
+                    font-size: 100%;
+                }
+            }
+            .register-link {
+                font-size: 100%;
             }
         }
     }
