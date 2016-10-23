@@ -19,12 +19,19 @@ const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocatio
             </div>
             <Map myLocation={myLocation} shelterLocation={shelter}/>
             <ul className="detail">
-                <li>{shelterLocation.walking.distance.text}</li>
-                <li>{shelterLocation.walking.duration.text}</li>
-                <li>0 open beds - <a href="" onClick={notify}>notify me</a></li>
+                <li>{shelterLocation.walking.distance.text} / {shelterLocation.walking.duration.text}</li>
+                <li className="beds">
+                    <div className="sub-title">Beds</div>
+                    <ul>
+                        {shelter.beds.map((bed) => {
+                            return <li>{bed.total_beds - bed.total_taken}/{bed.total_beds} beds available to {bed.who.join(', ')} free</li>
+                        })}
+                    </ul>
+                    <div><a href="" onClick={notify}>notify me of openings</a></div>
+                </li>
             </ul>
             <div className="restrictions">
-                <div>Restrictions</div>
+                <div className="sub-title">Restrictions</div>
                 <ul>
                     { shelter.restrictions.map((restriction) => <li key={restriction}>{restriction}</li>) }
                 </ul>
