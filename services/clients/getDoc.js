@@ -3,6 +3,7 @@ const { couchUrl } = require('../config')
 
 const getDoc = (db, id) =>
   agent.get(`${couchUrl}/${db}/${id}`)
+  .accept('json')
   .then(({ body }) => body)
   .catch((err) => {
     if (err && err.status === 404) {
