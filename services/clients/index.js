@@ -7,6 +7,7 @@ const getClient = require(`./getClient`)
 router.get('/', searchClient)
 router.post('/', upsertClient)
 router.get('/:id', getClient)
+router.post('/:id/referrals', require('./refer'))
 
 router.patch('/:id/tags', require('./updateTags'))
 

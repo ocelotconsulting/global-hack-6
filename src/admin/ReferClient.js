@@ -6,6 +6,7 @@ import Alert from 'react-bootstrap/lib/Alert'
 import ReferralTable from './ReferralTable'
 import Toolbar from '../Toolbar'
 import FadeIn from '../FadeIn'
+import _ from 'underscore'
 
 export default class ReferClient extends React.Component {
   update(params = this.props.params) {
@@ -31,13 +32,20 @@ export default class ReferClient extends React.Component {
 
     const setResult = (result) => this.setState({ result })
 
+    const referralBody = () => {
+      const program = _(programs).find(p => p._id === selectedId)
+      return {
+        id: selectedId,
+        name: program.name,
+        center: program.location
+      }
+    }
+
     const onSend = () =>
-      agent.patch(`/services/clients/${encodeURIComponent(clientId)}/tags`)
-      .send({
-        add: [selectedId]
-      })
-      .then(({ body }) => setResult(body))
-      .catch(e => setResult({ error: e.message || e.toString() }))
+      agent.post(`/services/clients/${encodeURIComponent(clientId)}/referrals`)
+      .send(referralBody())
+      .then(({ body }) => setResult({ok: true}))
+      .catch(e => setResult({ error: JSON.stringify(e) }))
 
     const cancelButton = (label = 'Cancel', bsStyle = 'default') => (
       <Link to={`/admin/${encodeURIComponent(shelterId)}`} className={`btn btn-${bsStyle}`}>
