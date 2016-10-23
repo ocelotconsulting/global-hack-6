@@ -27,7 +27,7 @@ export default class ReferClient extends React.Component {
   render() {
     const { client, programs, selectedId, result } = this.state || {}
     const { clientId, shelterId } = this.props.params
-    const clientName = client && `${client.first_name} ${client.last_name} `
+    const clientName = client && `${client.first_name} ${client.last_name}`
 
     const setResult = (result) => this.setState({ result })
 
@@ -78,7 +78,7 @@ export default class ReferClient extends React.Component {
       return (
         <div className='refer-client'>
           <h2>
-            {`${client.first_name} ${client.last_name} `}
+            {`${clientName} `}
             <small>
               refer client
             </small>
