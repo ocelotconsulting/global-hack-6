@@ -18,11 +18,14 @@ module.exports = () =>
     let message = ''
     let avg = 0
     if (avgHigh > tooHotLimit) {
-      message = 'This months average temperature is higher than normal.  Expect to see an increase in utility bills and homeless conversations to the street.'
       avg = avgHigh
+      message = `This months average temperature ${Number.parseInt(avg)}F is higher than normal.  This is a good opportunity raise awareness of the Utility Assistance Programs that are available.`
     } else if (avgLow < tooColdLimit) {
-      message = 'This months average temperature is lower than normal.  Expect to see an increase in utility bills and homeless conversations to the street.'
       avg = avgLow
+      message = `This months average temperature ${Number.parseInt(avg)}F is lower than normal.  This is a good opportunity raise awareness of the Utility Assistance Programs that are available.`
+    } else {
+      avg = (avgHigh + avgLow) / 2
+      message = `This months average high ${Number.parseInt(avgHigh)}F and average low ${Number.parseInt(avgLow)}F are not expected to have a significant impact to utiliy bills.`
     }
 
     return {
