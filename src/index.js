@@ -20,9 +20,6 @@ const NotFound = (props) => <h1>404 - Not Found</h1>
 
 const requireAuth = (nextState, replace) => {
   auth.parseAuthHash(nextState.location.hash)
-  if (!auth.loggedIn()) {
-    replace({ pathname: '/' })
-  }
 }
 
 const Dashboard = React.createClass({
@@ -35,14 +32,14 @@ const ShelterContainer = ({children}) => <div>{children}</div>
 
 const routes =
   <Router history={browserHistory}>
-    <Route path='/' component={AppWrapper}>
+    <Route path='/' component={AppWrapper} onEnter={requireAuth}>
       <IndexRoute component={Dashboard}/>
-      <Route path='clients' component={Clients} onEnter={requireAuth}>
+      <Route path='clients' component={Clients} >
         <Route path='locate' component={FindClient}/>
         <Route path='register' component={withRouter(RegisterClient)}/>
       </Route>
-      <Route path='bed' component={BedFinder} onEnter={requireAuth}/>
-      <Route path='auth' component={AuthenticationWrapper} onEnter={requireAuth}/>
+      <Route path='bed' component={BedFinder} />
+      <Route path='auth' component={AuthenticationWrapper} />
       <Route path='admin' component={Admin} onEnter={requireAuth}>
         <Route path=':shelterId' component={ShelterContainer}>
           <Route path='check-in/:clientId' component={CheckInClient}/>

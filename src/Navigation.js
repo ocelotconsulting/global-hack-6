@@ -8,11 +8,17 @@ export default class Navigation extends React.Component {
   render () {
     const {auth} = this.props
     const profile = auth.getProfile()
-    const loginOrUser = () => (auth.loggedIn())
-        ? (<NavDropdown eventKey={4} title={profile.name} id="basic-nav-dropdown">
-             <MenuItem eventKey={4.1} onClick={() => { auth.logout(); this.forceUpdate() }}>Logout</MenuItem>
-           </NavDropdown>)
-        : (<NavItem eventKey={4} onClick={() => { auth.login(); this.forceUpdate() }}>Login</NavItem>)
+    const loginOrUser = () => {
+      if (!profile.name) {
+        // todo hackity-hack-hack
+        setTimeout(() => this.forceUpdate(), 500)
+      }
+      return (auth.loggedIn())
+          ? (<NavDropdown eventKey={4} title={profile.name || ' '} id="basic-nav-dropdown">
+        <MenuItem eventKey={4.1} onClick={() => { auth.logout(); window.location = '/' }}>Logout</MenuItem>
+      </NavDropdown>)
+          : (<NavItem eventKey={4} onClick={() => { auth.login(); this.forceUpdate() }}>Login</NavItem>)
+    }
 
     return (
       <Row>

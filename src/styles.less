@@ -13,22 +13,42 @@
 @import "clients/styles";
 
 .spinner {
-  background-image: url(/spinner.gif);
-  height: 50px;
-  width: 50px;
-  background-size: 50px;
-  margin: 0 auto;
-  margin-top: 75px;
-  position: absolute;
-  z-index: 100;
-  right: 0;
-  left: 0;
+    background-image: url(/spinner.gif);
+    height: 50px;
+    width: 50px;
+    background-size: 50px;
+    margin: 0 auto;
+    margin-top: 75px;
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    left: 0;
 }
 
 .fade-in {
-  opacity: 0;
-  &.active {
-    opacity: 1;
-    transition: opacity .2s ease-in;
-  }
+    opacity: 0;
+    &.active {
+        opacity: 1;
+        transition: opacity .2s ease-in;
+    }
+}
+
+.login-prompt {
+    text-align: center;
+    font-size: 120%;
+    img {
+        vertical-align: middle;
+        width: 58%;
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        margin-top: 95px;
+        margin-bottom: 24px;
+    }
+    @media (min-width: @screen-sm-min) {
+        img {
+            width: 25%;
+        }
+        font-size: 180%;
+    }
 }
