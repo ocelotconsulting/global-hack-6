@@ -72,14 +72,16 @@ export default class Shelter extends React.Component {
   }
 
   closeReservation(clientName, checkin) {
-    console.log('todo delete reservation for', clientName, checkin)
-    const originalReservations = this.state.shelter.reservations
-    const newReservations = originalReservations.filter((res) => res.clientName != clientName)
-    this.state.shelter.reservations = newReservations // leave me a lone, it's 4am
-    this.setState({shelter: this.state.shelter})
-    if (checkin) {
-      browserHistory.push(`/clients?returnTo=/admin/${encodeURIComponent(this.state.shelter.id)}/check-in`)
-    }
+    agent.del(`/services/shelters/${this.state.shelter.id}/reservation/${clientName}`)
+        .then(() => {
+          const originalReservations = this.state.shelter.reservations
+          const newReservations = originalReservations.filter((res) => res.clientName != clientName)
+          this.state.shelter.reservations = newReservations // leave me a lone, it's 4am
+          this.setState({shelter: this.state.shelter})
+          if (checkin) {
+            browserHistory.push(`/clients?returnTo=/admin/${encodeURIComponent(this.state.shelter.id)}/check-in`)
+          }
+        })
   }
 
   render() {
