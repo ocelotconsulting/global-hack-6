@@ -33,7 +33,7 @@ const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocatio
             <div className="restrictions">
                 <div className="sub-title">Restrictions</div>
                 <ul>
-                    { shelter.restrictions.map((restriction) => <li key={restriction}>{restriction}</li>) }
+                    { shelter.restrictions.map((restriction) => <li key={restriction}><i className="fa fa-exclamation-circle"/>{restriction}</li>) }
                 </ul>
             </div>
         </div>

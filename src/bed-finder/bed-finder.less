@@ -66,8 +66,15 @@
         }
         .restrictions {
             font-size: 80%;
-            color: @brand-warning;
             margin-left: 10px;
+            .fa-exclamation-circle {
+                color: @brand-warning;
+                margin-right: 5px;
+            }
+            li {
+                text-indent: -8px;
+                margin-left: 16px;
+            }
             ul {
                 list-style: none;
                 padding-left: 9px;
@@ -131,7 +138,14 @@
     .restrictions {
         padding-left: 28px;
         ul {
-            color: @brand-warning;
+            .fa-exclamation-circle {
+                color: @brand-warning;
+                margin-right: 5px;
+            }
+            li {
+                text-indent: -8px;
+                margin-left: 16px;
+            }
             list-style: none;
             padding-left: 9px;
         }

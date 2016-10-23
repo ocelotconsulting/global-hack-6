@@ -33,7 +33,7 @@ const Buttons = ({ children }) => {
   let key = 0
   return (
     <ButtonToolbar>
-      {children.map(child => (
+      {[].concat(children).map(child => (
         <ButtonGroup key={key++}>
           {child}
         </ButtonGroup>
@@ -110,10 +110,13 @@ export default class CheckInClient extends React.Component {
       const total = _(counts).chain().values().reduce((a, b) => a + b).value()
 
       const onCheckIn = () => {
+        const setResult = (result) => this.setState({ result, busy: false })
+
         this.setState({ busy: true })
         agent.post(`/services/shelters/${encodeURIComponent(shelterId)}/reservations`)
         .send({ clientId, bedTypes: counts })
-        .then(({ body }) => this.setState({ result: body, busy: false }))
+        .then(({ body }) => setResult(body))
+        .catch(e => this.setResult({ error: e.message || e.toString() }))
       }
 
       const createChangeCountButton = (property, delta, icon) => {
