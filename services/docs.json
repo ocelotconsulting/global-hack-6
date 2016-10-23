@@ -1,8 +1,44 @@
 [
   {
-    "name": "alice"
+    "_id": "city-seeds",
+    "name": "City Seeds",
+    "type": "training",
+    "location": "St. Patrick's Center"
   },
   {
-    "name": "bob"
+    "_id": "mcmurphys",
+    "name": "McMurphy’s Cafe",
+    "type": "training",
+    "location": "St. Patrick's Center"
+  },
+  {
+    "_id": "homeless-employment",
+    "name": "Homeless Employment",
+    "type": "training",
+    "location": "St. Patrick's Center"
+  },
+  {
+    "_id": "labre-center",
+    "name": "Labre Center",
+    "type": "training",
+    "location": "Peter and Paul"
+  },
+  {
+    "_id": "community-collaborative",
+    "name": "Community CollabARTive",
+    "type": "training",
+    "location": "Peter and Paul"
+  },
+  {
+    "_id": "skills-4-success",
+    "name": "Skills 4 Success",
+    "type": "training",
+    "location": "Gateway 180"
+  },
+  {
+    "_id": "twice-blessed",
+    "name": "Twice Blessed",
+    "type": "training",
+    "location": "Our Lady's Inn"
   }
 ]

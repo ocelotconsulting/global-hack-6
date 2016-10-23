@@ -2,11 +2,11 @@
 
 import React from 'react'
 import agent from '../agent'
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup'
 import Button from 'react-bootstrap/lib/Button'
 import Alert from 'react-bootstrap/lib/Alert'
 import FadeIn from '../FadeIn'
+import Toolbar from '../Toolbar'
 import { Link } from 'react-router'
 import _ from 'underscore'
 
@@ -27,19 +27,6 @@ const categories = {
     singular: 'Infant',
     plural: 'Infants'
   }
-}
-
-const Buttons = ({ children }) => {
-  let key = 0
-  return (
-    <ButtonToolbar>
-      {[].concat(children).map(child => (
-        <ButtonGroup key={key++}>
-          {child}
-        </ButtonGroup>
-      ))}
-    </ButtonToolbar>
-  )
 }
 
 export default class CheckInClient extends React.Component {
@@ -90,9 +77,9 @@ export default class CheckInClient extends React.Component {
             {total > 1 ? ` and ${total - 1} other(s) have ` : ' has '}
             {`successfully checked into ${shelter.name}.`}
           </Alert>
-          <Buttons>
+          <Toolbar>
             {cancelButton('Done', 'primary')}
-          </Buttons>
+          </Toolbar>
         </FadeIn>
       ) : (
         <FadeIn className='check-in'>
@@ -101,10 +88,10 @@ export default class CheckInClient extends React.Component {
             {' '}
             {result.error || 'unknown error'}
           </Alert>
-          <Buttons>
+          <Toolbar>
             <Button bsStyle='primary' onClick={() => this.setState({ result: undefined })}>Try Again</Button>
             {cancelButton()}
-          </Buttons>
+          </Toolbar>
         </FadeIn>
       )
 
@@ -172,10 +159,10 @@ export default class CheckInClient extends React.Component {
           {busy ? (
             <div className='spinner'/>
           ) : (
-            <Buttons>
+            <Toolbar>
               <Button bsStyle='primary' onClick={onCheckIn} disabled={total === 0}>Check In</Button>
               {cancelButton()}
-            </Buttons>
+            </Toolbar>
           )
           }
         </FadeIn>

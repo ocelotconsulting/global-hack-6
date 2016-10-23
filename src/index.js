@@ -2,14 +2,13 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute, withRouter } from 'react-router'
 import App from './App'
-// noinspection JSFileReferences
 import { BedFinder } from './bed-finder'
 import Authentication from './Authentication'
 import Admin from './admin/Admin'
 import CheckInClient from './admin/CheckInClient'
+import ReferClient from './admin/ReferClient'
 import Shelter from './admin/Shelter'
 import AuthService from './auth/AuthService'
-// noinspection JSFileReferences
 import { Clients, FindClient, RegisterClient } from './clients'
 import HomePage from './HomePage'
 
@@ -23,7 +22,7 @@ const requireAuth = (nextState, replace) => {
   auth.parseAuthHash(nextState.location.hash)
 }
 
-const ShelterContainer = ({children}) => <div>{children}</div>
+const ShelterContainer = ({ children }) => <div>{children}</div>
 
 const routes =
   <Router history={browserHistory}>
@@ -38,6 +37,7 @@ const routes =
       <Route path='admin' component={Admin} onEnter={requireAuth}>
         <Route path=':shelterId' component={ShelterContainer}>
           <Route path='check-in/:clientId' component={CheckInClient}/>
+          <Route path='refer/:clientId' component={ReferClient}/>
           <IndexRoute component={Shelter}/>
         </Route>
       </Route>

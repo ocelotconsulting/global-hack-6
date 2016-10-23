@@ -12,9 +12,9 @@ module.exports = ({ params: { id }, body }, res, next) => {
       doc.tags = _(doc.tags || []).chain().union(add || []).without(remove || []).value()
       putDoc(db, doc)
       .then(({ body }) => res.json(body))
-      .catch(next)
     } else {
       res.status(404).send(`client ${id} not found`)
     }
   })
+  .catch(next)
 }
