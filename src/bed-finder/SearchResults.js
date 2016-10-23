@@ -43,7 +43,7 @@ const SearchResult = ({result, bedsRequested, reserve, details}) => {
                 <div className="subtitle">Restrictions</div>
                 <ul>
                     {(result.shelter.restrictions.length > 0) ? (
-                        result.shelter.restrictions.map((restriction) => <li key={restriction}>{restriction}</li>)
+                        result.shelter.restrictions.map((restriction) => <li key={restriction}><i className="fa fa-exclamation-circle"/>{restriction}</li>)
                     ) : (
                         <li>no known restrictions</li>
                     )}
