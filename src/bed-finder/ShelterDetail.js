@@ -10,7 +10,7 @@ const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocatio
     }
 
     const closing = moment(shelter.hours_for_intake.closed, "HHmm")
-    const reservationMessage = closing.isValid() ? `Your reservation is confirmed, registration closes ${closing.fromNow()}` : 'Your reservation is confirmed, registration closing time is unknown.a'
+    const reservationMessage = closing.isValid() ? `Your reservation is confirmed, registration closes ${closing.fromNow()}` : 'Your reservation is confirmed, registration closing time is unknown'
     const reservationClass = (reservationConfirmation) ? 'alert alert-success' : ''
 
     console.log(shelter)
