@@ -30,7 +30,7 @@ const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocatio
                     <div className="sub-title">Beds</div>
                     <ul>
                         {shelter.beds.map((bed) => {
-                            return <li>{bed.total_beds - bed.total_taken}/{bed.total_beds} beds available to {bed.who.join(', ')} free</li>
+                            return <li key={bed.who}>{bed.total_beds - bed.total_taken}/{bed.total_beds} beds available to {bed.who.join(', ')} free</li>
                         })}
                     </ul>
                     <div><a href="" onClick={notify}>notify me of openings</a></div>
