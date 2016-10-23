@@ -16,10 +16,10 @@ export default class AuthService extends EventEmitter {
         validator: (value) => value.length > 10
       }],
       languageDictionary: {
-        title: 'Hack Homeless'
+        title: 'SafeNight'
       },
       theme: {
-        logo: 'https://www.ccstl.org/wp-content/uploads/2014/08/stpatrickcntr_logo.png',
+        logo: '/LargeIconSimple.png',
         primaryColor: 'green'
       }
     })
@@ -36,6 +36,7 @@ export default class AuthService extends EventEmitter {
       if (error) {
         console.log('Error loading the Profile', error)
       } else {
+        console.log('loading profile', profile)
         this.setProfile(profile)
       }
     })

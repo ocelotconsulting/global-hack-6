@@ -1,4 +1,6 @@
 @import "../node_modules/bootstrap/less/bootstrap";
+//@import url('https://fonts.googleapis.com/css?family=Suez+One');
+@import url('https://fonts.googleapis.com/css?family=Copse');
 
 // from bootstrap
 @screen-sm-min: 768px;
@@ -12,23 +14,93 @@
 @import "admin/admin";
 @import "clients/styles";
 
+body{
+  margin-bottom: 10px;
+}
+
 .spinner {
-  background-image: url(/spinner.gif);
-  height: 50px;
-  width: 50px;
-  background-size: 50px;
-  margin: 0 auto;
-  margin-top: 75px;
-  position: absolute;
-  z-index: 100;
-  right: 0;
-  left: 0;
+    background-image: url(/spinner.gif);
+    height: 50px;
+    width: 50px;
+    background-size: 50px;
+    margin: 0 auto;
+    margin-top: 75px;
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    left: 0;
+    background-color: rgba(211, 241, 212, 0.82);
+    padding: 38px 50px;
+    background-repeat: no-repeat;
+    background-position: 24px 14px;
+    border-radius: 5px;
 }
 
 .fade-in {
-  opacity: 0;
-  &.active {
-    opacity: 1;
-    transition: opacity .2s ease-in;
-  }
+    opacity: 0;
+    &.active {
+        opacity: 1;
+        transition: opacity .2s ease-in;
+    }
+}
+
+.login-prompt {
+    text-align: center;
+    font-size: 120%;
+    img {
+        vertical-align: middle;
+        width: 58%;
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        margin-top: 95px;
+        margin-bottom: 24px;
+    }
+    @media (min-width: @screen-sm-min) {
+        img {
+            width: 25%;
+        }
+        font-size: 180%;
+    }
+}
+
+.homepage {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    .tag-line {
+        font-family: 'Copse', serif;
+        color: white;
+        font-size: 371%;
+        margin-top: 166px;
+        position: absolute;
+        max-width: 60%;
+        right: 50px;
+        background: rgba(0, 0, 0, 0.44);
+        line-height: 1.2;
+        text-align: center;
+        border-radius: 10px;
+        padding: 18px;    }
+    img.background {
+        width: 100%;
+        margin-top: 150px;
+    }
+    .logo {
+        width: 93px;
+        margin: 8px;
+    }
+    @media (max-width: @screen-sm-min) {
+        img.background {
+            width: 150%;
+            margin-top: 100px;
+        }
+        .tag-line {
+            font-size: 163%;
+            border: 1px solid white;
+            right: 16px;
+            background: rgba(73, 147, 73, 0.82);
+        }
+    }
 }

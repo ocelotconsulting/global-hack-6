@@ -16,7 +16,7 @@ const SearchResults = ({bedsRequested, searchResults, reserve, details}) => {
 
 const SearchResult = ({result, bedsRequested, reserve, details}) => {
     const closing = moment(result.shelter.hours_for_intake.closed, "HHmm")
-    const closingMessage = closing.isValid() ? `registration closes at ${closing.fromNow()}` : 'registration closing time unknown'
+    const closingMessage = closing.isValid() ? `registration closes ${closing.fromNow()}` : 'registration closing time unknown'
     let matches = true
     _(bedsRequested).pairs().forEach(([key, val]) => {
         if (val > 0) {
@@ -30,11 +30,11 @@ const SearchResult = ({result, bedsRequested, reserve, details}) => {
     return (
         <div className="result">
             <div className="shelter-name"><a href="#" onClick={() => details(result.shelter.id)}>{result.shelter.name}</a></div>
-            <a href="#" className="register-link" onClick={() => reserve(result.shelter.id)}>reserve</a>
+            {matches ? <a href="#" className="register-link" onClick={() => reserve(result.shelter.id)}>reserve</a> : ''}
             <div className="details">
                 <ul>
                     <li>{result.distance.walking.distance.text} ({result.distance.walking.duration.text} walking)</li>
-                    <li>{matches ? <div className="open-beds">currently has enough open beds</div> : 'unlikely match'}</li>
+                    <li>{matches ? <div className="open-beds">currently has enough open beds</div> : <div className="no-open-beds">unlikely match</div>}</li>
                     <li>{closingMessage}</li>
                 </ul>
             </div>

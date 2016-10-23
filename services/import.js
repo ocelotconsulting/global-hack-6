@@ -5,9 +5,13 @@ const express = require('express')
 const router = express.Router()
 
 router.post('/', (req, res, next) => {
-  agent.post(`${couchUrl}/foobar/_bulk_docs`)
-  .send({ docs: require('./docs.json') })
-  .then(({ body }) => res.json(body))
+  const docs = require('./docs.json')
+  Promise.all(docs.map(d =>
+    agent.put(`${couchUrl}/programs/${d._id}`)
+    .send(d)
+    .then(({ body }) => body)
+  ))
+  .then(results => res.json(results))
   .catch(next)
 })
 

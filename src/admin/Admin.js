@@ -7,9 +7,7 @@ const onShelterSelected = (shelterId) =>
 
 const Admin = ({ params: { shelterId, clientId }, children }) => (
   <div className='admin'>
-    {clientId ? null : (
-      <Shelters value={shelterId} onSelection={onShelterSelected}/>
-    )}
+    {clientId ? null : (<Shelters value={shelterId} onSelection={onShelterSelected}/>)}
     {children}
   </div>
 )

@@ -4,6 +4,7 @@ import FindClient from './FindClient'
 import RegisterClient from './RegisterClient'
 import FindOrRegister from './FindOrRegister'
 import RegisterWithoutFind from './RegisterWithoutFind'
+import ClientDetails from './ClientDetails'
 
 class Clients extends React.Component {
   render () {
@@ -23,4 +24,4 @@ Clients.propTypes = {
 }
 
 export default Clients
-export {Clients, FindClient, RegisterClient}
+export {Clients, FindClient, RegisterClient, ClientDetails}

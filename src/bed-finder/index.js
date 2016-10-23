@@ -6,6 +6,7 @@ import SearchResults from "./SearchResults"
 import Reserve from "./ReserveBedForm"
 import ShelterDetail from "./ShelterDetail"
 import SubmitPhone from "./SubmitPhone"
+import _ from 'underscore'
 
 class BedFinder extends React.Component {
     constructor(props) {
@@ -46,7 +47,22 @@ class BedFinder extends React.Component {
                     this.setState({'searchResults': res.body})
                     this.moveTo('searchResults')
                 })
-        });
+        })
+    }
+
+    reserveShelterBed(clientName) {
+        this.setState({
+            showWaitTicker: true
+        })
+        const requestor = _(this.props.auth.getProfile()).pick('name', 'email')
+        console.log(`resolve shelter bed for ${clientName}`, this.state)
+        agent.post(`/services/shelters/${this.state.shelterId}/reservations`)
+          .send({clientName: clientName, bedTypes: this.state.bedsRequested, requestor})
+          .then(({ body: { id, rev } }) => {
+            console.log(`reserveSHelterBed response body: ${id}_${rev}`)
+            this.setState({reservationConfirmation: `${id}_${rev}`})
+            this.details(this.state.shelterId)
+          })
     }
 
     moveTo(step) {
@@ -86,9 +102,9 @@ class BedFinder extends React.Component {
             case 'searchResults':
                 return <SearchResults bedsRequested={this.state.bedsRequested} searchResults={this.state.searchResults} reserve={(id) => this.reserve(id)} details={(id) => this.details(id)}/>;
             case 'reserve':
-                return <Reserve/>;
+                return <Reserve reserveShelterBed={(clientName) => this.reserveShelterBed(clientName)} />;
             case 'shelter-detail':
-                return <ShelterDetail shelter={this.state.shelterDetail} myLocation={this.state.position} shelterLocation={this.getLocation(this.state.shelterDetail)} requestNotification={() => this.moveTo('enter-phone')}/>;
+                return <ShelterDetail shelter={this.state.shelterDetail} myLocation={this.state.position} shelterLocation={this.getLocation(this.state.shelterDetail)} requestNotification={() => this.moveTo('enter-phone')} reservationConfirmation={this.state.reservationConfirmation} />;
             case 'enter-phone':
                 return <SubmitPhone shelter={this.state.shelterDetail} requestNotification={(id, phone) => this.notifyWhenShelterIsAvailable(id, phone)}/>;
             default:

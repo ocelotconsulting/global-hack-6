@@ -33,32 +33,46 @@ class SubmitCounts extends React.Component {
 
             <div className="input-row">
                 <div className="btn-group" role="group" aria-label="...">
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('men', -1)}>-</button>
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('men', +1)}>+</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('men', -1)}>
+                        <i className="fa fa-minus" />
+                    </button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('men', +1)}>
+                        <i className="fa fa-plus" />
+                    </button>
                 </div>
                 {this.state.men} Adult {this.state.men == 1 ? 'Man' : 'Men'}
             </div>
 
             <div className="input-row">
                 <div className="btn-group" role="group" aria-label="...">
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', -1)}>-</button>
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', +1)}>+</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', -1)}>
+                        <i className="fa fa-minus" />
+                    </button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('women', +1)}>
+                        <i className="fa fa-plus" />
+                    </button>
                 </div>
                 {this.state.women} Adult {this.state.women == 1 ? 'Woman' : 'Women'}
             </div>
 
             <div className="input-row">
                 <div className="btn-group" role="group" aria-label="...">
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('children', -1)}>-</button>
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('children', +1)}>+</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('children', -1)}>                        <i className="fa fa-minus" />
+                    </button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('children', +1)}>
+                        <i className="fa fa-plus" />
+                    </button>
                 </div>
                 {this.state.children} {this.state.children == 1 ? 'Child' : 'Children'}
             </div>
 
             <div className="input-row">
                 <div className="btn-group" role="group" aria-label="...">
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('infants', -1)}>-</button>
-                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('infants', +1)}>+</button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('infants', -1)}>                        <i className="fa fa-minus" />
+                    </button>
+                    <button type="button" className="btn btn-default" onClick={() => this.changeCount('infants', +1)}>
+                        <i className="fa fa-plus" />
+                    </button>
                 </div>
                 {this.state.infants} {this.state.infants == 1 ? 'Infant' : 'Infants'}
             </div>
