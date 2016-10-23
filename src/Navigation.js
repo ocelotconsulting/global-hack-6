@@ -26,7 +26,7 @@ export default class Navigation extends React.Component {
           <Navbar inverse>
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to='/'><img src="/logo.png"/>SafeNight</Link>
+                <Link to='/'><img src="/logo_small.png"/>SafeNight</Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
@@ -35,7 +35,7 @@ export default class Navigation extends React.Component {
                 <NavItem eventKey={1} href="/bed">Find Beds</NavItem>
                 <NavItem eventKey={1} href="/clients/locate">Find Client</NavItem>
                 <NavItem eventKey={1} href="/clients/register">Register Client</NavItem>
-                <NavItem eventKey={1} href="/admin">Admin</NavItem>
+                <NavItem eventKey={1} href="/admin">Check in Client</NavItem>
               </Nav>
               <Nav pullRight>
                 {loginOrUser()}

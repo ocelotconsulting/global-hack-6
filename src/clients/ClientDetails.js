@@ -7,15 +7,28 @@ import md5 from 'md5'
 import randomHistory from './generateRandomHistoryData'
 
 function getGender (gender) {
-  return gender
+  switch (gender) {
+    case 'F': return 'Female'
+    case 'M': return 'Male'
+    default: return 'Data not collected'
+  }
 }
 
 function getRace (race) {
-  return race
+  switch (race) {
+    case 'B': return 'Black or African American'
+    case 'W': return 'White'
+    case 'N': return 'American Indian or Alaska Native'
+    default: return 'Data not collected'
+  }
 }
 
 function getVeteranStatus (status) {
-  return status
+  switch (status) {
+    case 'Y': return 'Yes'
+    case 'N': return 'No'
+    default: return 'Data not collected'
+  }
 }
 
 class DataWithLabel extends React.Component {
@@ -45,7 +58,7 @@ class ClientDetails extends React.Component {
     this.setState({loading: true})
     agent.get(`/services/clients/${this.props.params.id}`)
     .then(({body}) => {
-      body.photo = body.photo || `https://www.gravatar.com/avatar/${md5(body.email || '')}?s=450&d=identicon`
+      body.photo = body.picture || `https://www.gravatar.com/avatar/${md5(body.email || '')}?s=450&d=identicon`
       body.dob = moment(body.dob)
       if (!body.history) {
         let history = []
@@ -100,7 +113,7 @@ class ClientDetails extends React.Component {
                     <DataWithLabel label='Email:' value={<a href={`mailto:${email}`} target='_blank'>{email}</a>} />
                   </Col>
                   <Col sm={6}>
-                    <DataWithLabel label='Phone:' value={<a href={`mailto:${email}`} target='_blank'>{phone}</a>} />
+                    <DataWithLabel label='Phone:' value={phone} />
                   </Col>
                 </Row>
               </Panel>

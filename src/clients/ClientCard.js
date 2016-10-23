@@ -41,7 +41,7 @@ ClientCard.propTypes = {
   first_name: React.PropTypes.string,
   last_name: React.PropTypes.string,
   returnTo: React.PropTypes.string,
-  picture: React.PropTypes.object,
+  picture: React.PropTypes.string,
   _id: React.PropTypes.string
 }
 
