@@ -10,7 +10,7 @@ import CheckInClient from './admin/CheckInClient'
 import Shelter from './admin/Shelter'
 import AuthService from './auth/AuthService'
 // noinspection JSFileReferences
-import { Clients, FindClient, RegisterClient } from './clients'
+import { Clients, FindClient, RegisterClient, ClientDetails } from './clients'
 import HomePage from './HomePage'
 
 const auth = new AuthService('AkO3gnKJqhHFE6Be6xiWfINFdYbF95qH', 'larry.auth0.com')
@@ -32,6 +32,7 @@ const routes =
       <Route path='clients' component={Clients} >
         <Route path='locate' component={FindClient}/>
         <Route path='register' component={withRouter(RegisterClient)}/>
+        <Route path='view/:id' component={withRouter(ClientDetails)}/>
       </Route>
       <Route path='bed' component={BedFinder} />
       <Route path='auth' component={AuthenticationWrapper} />

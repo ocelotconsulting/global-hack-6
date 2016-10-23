@@ -27,7 +27,7 @@ class ClientCard extends React.Component {
             {this.props.returnTo &&
                <Link className='btn btn-default btn-xs' to={`${this.props.returnTo}/${this.props._id}`}>Select</Link>
             }
-            <Button bsStyle='info' bsSize='xsmall'>Details</Button>
+            <Link className='btn btn-info btn-xs' to={`/clients/view/${this.props._id}`}>Details</Link>
           </ButtonToolbar>
         </Panel>
       </Col>
