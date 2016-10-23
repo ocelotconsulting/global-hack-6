@@ -1,24 +1,28 @@
 // noinspection JSUnusedLocalSymbols
-import React from 'react'
-import {Link} from 'react-router'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Row, Col } from 'react-bootstrap'
+import React from "react";
+import {Link} from "react-router";
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem, Row, Col} from "react-bootstrap";
 
 export default class Navigation extends React.Component {
 
-  render () {
-    const {auth} = this.props
-    const profile = auth.getProfile()
-    const loginOrUser = () => {
-      if (!profile.name) {
-        // todo hackity-hack-hack
-        setTimeout(() => this.forceUpdate(), 500)
-      }
-      return (auth.loggedIn())
-          ? (<NavDropdown eventKey={4} title={profile.name || ' '} id="basic-nav-dropdown">
-        <MenuItem eventKey={4.1} onClick={() => { auth.logout(); window.location = '/' }}>Logout</MenuItem>
-      </NavDropdown>)
-          : (<NavItem eventKey={4} onClick={() => { auth.login(); this.forceUpdate() }}>Login</NavItem>)
-    }
+    render() {
+        const {auth} = this.props
+        const profile = auth.getProfile()
+        const loginOrUser = () => {
+            if (!profile.name) {
+                // todo hackity-hack-hack
+                setTimeout(() => this.forceUpdate(), 500)
+            }
+            return (auth.loggedIn())
+                ? (
+                    <NavDropdown eventKey={4} title={profile.name || ' '} id="basic-nav-dropdown">
+                        <MenuItem eventKey={4.1} href="/auth">My Profile</MenuItem>
+                        <MenuItem eventKey={4.2} onClick={() => { auth.logout(); window.location = '/' }}>Logout</MenuItem>
+                    </NavDropdown>
+                ) : (
+                    <NavItem eventKey={4} onClick={() => { auth.login(); this.forceUpdate() }}>Login</NavItem>
+                )
+        }
 
     return (
       <Row>
