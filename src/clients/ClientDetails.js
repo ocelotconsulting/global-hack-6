@@ -36,7 +36,7 @@ class DataWithLabel extends React.Component {
 
 DataWithLabel.propTypes = {
   label: React.PropTypes.string,
-  pullRight: React.PropTypes.string,
+  pullRight: React.PropTypes.bool,
   value: React.PropTypes.node
 }
 
@@ -108,7 +108,7 @@ class ClientDetails extends React.Component {
                     <DataWithLabel label='Date of Birth:' value={dob.format('MM/DD/YYYY')} />
                   </Col>
                   <Col sm={6}>
-                    <DataWithLabel label='Age:' value={dob.fromNow(true)} />
+                    <DataWithLabel label='Age:' value={`about ${dob.fromNow(true)}`} />
                   </Col>
                 </Row>
                 <Row>
