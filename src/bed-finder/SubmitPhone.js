@@ -5,7 +5,7 @@ import {render} from "react-dom";
 export default class ProfileDetails extends React.Component {
   submit(e) {
     e.preventDefault()
-    this.props.requestNotification(this.props.shelter._id, this.state.number)
+    this.props.requestNotification(this.props.shelter.id, this.state.number)
   }
   handleChange(e) {
     this.setState({number: e.target.value})
