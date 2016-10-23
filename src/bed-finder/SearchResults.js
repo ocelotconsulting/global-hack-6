@@ -30,11 +30,11 @@ const SearchResult = ({result, bedsRequested, reserve, details}) => {
     return (
         <div className="result">
             <div className="shelter-name"><a href="#" onClick={() => details(result.shelter.id)}>{result.shelter.name}</a></div>
-            <a href="#" className="register-link" onClick={() => reserve(result.shelter.id)}>reserve</a>
+            {matches ? <a href="#" className="register-link" onClick={() => reserve(result.shelter.id)}>reserve</a> : ''}
             <div className="details">
                 <ul>
                     <li>{result.distance.walking.distance.text} ({result.distance.walking.duration.text} walking)</li>
-                    <li>{matches ? <div className="open-beds">currently has enough open beds</div> : 'unlikely match'}</li>
+                    <li>{matches ? <div className="open-beds">currently has enough open beds</div> : <div className="no-open-beds">unlikely match</div>}</li>
                     <li>{closingMessage}</li>
                 </ul>
             </div>
