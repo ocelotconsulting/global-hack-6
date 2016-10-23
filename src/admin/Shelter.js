@@ -73,6 +73,7 @@ export default class Shelter extends React.Component {
 
   closeReservation(clientName, checkin) {
     agent.del(`/services/shelters/${this.state.shelter.id}/reservation/${clientName}`)
+        .send({'checkedIn': checkin})
         .then(() => {
           const originalReservations = this.state.shelter.reservations
           const newReservations = originalReservations.filter((res) => res.clientName != clientName)

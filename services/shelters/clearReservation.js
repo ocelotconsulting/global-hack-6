@@ -3,7 +3,9 @@ const getById = require('./getById')
 const putDoc = require('../clients/putDoc')
 const db = 'shelters'
 
-module.exports = ({shelterId, clientName}) => {
+module.exports = ({shelterId, clientName, checkedIn}) => {
+    console.log('user checked in? or was the reservation canceled?', checkedIn)
+    // todo email the person who made the reservation (found in shelterDoc.reservations2.requestor.email (and .name)
     return getDoc(db, shelterId)
         .then(shelterDoc => {
             shelterDoc.reservations2 = shelterDoc.reservations2.filter((reservation) => reservation.clientName != clientName)

@@ -33,7 +33,7 @@ router.post('/:id/reservations', (req, res, next) => {
 })
 
 router.delete('/:id/reservation/:clientName', (req, res, next) => {
-  return clearReservation({ shelterId: req.params.id, clientName: req.params.clientName})
+  return clearReservation({ shelterId: req.params.id, clientName: req.params.clientName, checkedIn: req.body.checkedIn})
   .then(response => res.json(response))
   .catch(next)
 })
