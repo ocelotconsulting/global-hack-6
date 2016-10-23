@@ -26,7 +26,7 @@ router.post('/', (req, res, next) => {
 
 router.post('/:id/reservations', (req, res, next) => {
   console.log(`making a reservation on ${req.params.id} with`, req.body)
-  return reserve({ shelterId: req.params.id, clientId: req.body.clientId, bedTypes: req.body.bedTypes })
+  return reserve({ shelterId: req.params.id, clientId: req.body.clientId, clientName: req.body.clientName, bedTypes: req.body.bedTypes })
   .then(response => res.json(response))
   .catch(next)
 })

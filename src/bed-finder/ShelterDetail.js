@@ -1,16 +1,21 @@
 import React from "react";
 import {render} from "react-dom";
 import Map from './Map'
+import moment from "moment"
 
-const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocation}) => {
+const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocation, reservationConfirmation}) => {
     function notify(e) {
         e.preventDefault()
         requestNotification(shelter.id)
     }
 
+    const closing = moment(shelter.hours_for_intake.closed, "HHmm")
+    const reservationMessage = closing.isValid() ? `Your reservation is confirmed, please show up ${closing.toNow()}` : 'Your reservation is confirmed.'
+
     console.log(shelter)
     return (
         <div className="shelter-detail">
+            <div className="alert alert-success">{(reservationConfirmation) ? reservationMessage : ''}</div>
             <div className="title">{shelter.name}</div>
             <div className="contact-info">
                 <div>{shelter.street}</div>
