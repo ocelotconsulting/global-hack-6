@@ -11,6 +11,7 @@ import Shelter from './admin/Shelter'
 import AuthService from './auth/AuthService'
 // noinspection JSFileReferences
 import { Clients, FindClient, RegisterClient } from './clients'
+import HomePage from './HomePage'
 
 const auth = new AuthService('AkO3gnKJqhHFE6Be6xiWfINFdYbF95qH', 'larry.auth0.com')
 
@@ -22,18 +23,12 @@ const requireAuth = (nextState, replace) => {
   auth.parseAuthHash(nextState.location.hash)
 }
 
-const Dashboard = React.createClass({
-  render () {
-    return <div>Welcome to the app!</div>
-  }
-})
-
 const ShelterContainer = ({children}) => <div>{children}</div>
 
 const routes =
   <Router history={browserHistory}>
     <Route path='/' component={AppWrapper} onEnter={requireAuth}>
-      <IndexRoute component={Dashboard}/>
+      <IndexRoute component={HomePage}/>
       <Route path='clients' component={Clients} >
         <Route path='locate' component={FindClient}/>
         <Route path='register' component={withRouter(RegisterClient)}/>
