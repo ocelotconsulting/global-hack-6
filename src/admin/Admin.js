@@ -5,9 +5,11 @@ import { browserHistory } from 'react-router'
 const onShelterSelected = (shelterId) =>
   browserHistory.push(`/admin/${encodeURIComponent(shelterId)}`)
 
-const Admin = ({ params: { shelterId }, children }) => (
+const Admin = ({ params: { shelterId, clientId }, children }) => (
   <div className='admin'>
-    <Shelters value={shelterId} onSelection={onShelterSelected}/>
+    {clientId ? null : (
+      <Shelters value={shelterId} onSelection={onShelterSelected}/>
+    )}
     {children}
   </div>
 )
