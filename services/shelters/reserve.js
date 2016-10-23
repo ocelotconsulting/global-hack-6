@@ -19,6 +19,11 @@ module.exports = ({ shelterId, clientId, clientName, bedTypes }) => {
   })
   .then(() => getDoc(db, shelterId))
   .then(shelterDoc => {
+    if (!shelterDoc.reservations2) {
+      shelterDoc.reservations2 = []
+    }
+    shelterDoc.reservations2.push({clientName, bedTypes})
+
     for (bedType in bedTypes) {
       if (bedTypes[bedType] > 0) {
         if (!shelterDoc.reservations)

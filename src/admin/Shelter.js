@@ -1,12 +1,13 @@
 /* eslint camelcase: "off" */
-import React from 'react'
-import { Link, browserHistory } from 'react-router'
-import moment from 'moment'
-import FadeIn from '../FadeIn'
-import Toolbar from '../Toolbar'
-import ShelterSummary from './ShelterSummary'
-import ShelterDetails from './ShelterDetails'
-import agent from '../agent'
+import React from "react";
+import {Link, browserHistory} from "react-router";
+import moment from "moment";
+import FadeIn from "../FadeIn";
+import Toolbar from "../Toolbar";
+import ShelterSummary from "./ShelterSummary";
+import ShelterDetails from "./ShelterDetails";
+import agent from "../agent";
+import _ from "underscore";
 
 const calculateBedSummary = beds => {
   let available = 0
@@ -21,6 +22,26 @@ const calculateBedSummary = beds => {
     available,
     total,
     pending: 0
+  }
+}
+
+class Reservation extends React.Component {
+  render() {
+    const {reservation, shelter, close} = this.props
+    const {bedTypes, clientName} = reservation
+    const beds = _(bedTypes).pairs()
+        .filter(([group, count]) => count > 0)
+        .map(([group, count]) => `${count} ${group}`)
+        .join(', ')
+    return (
+        <div className="reservation">
+          <div className="client-name">{clientName}</div>
+          <div className="beds">{beds}</div>
+          <div className="actions">
+            <a href="" onClick={(e) => {e.preventDefault(); close(false)}}>cancel</a> / <a href="" onClick={(e) => {e.preventDefault(); close(true)}}>check in</a>
+          </div>
+        </div>
+    )
   }
 }
 
@@ -50,6 +71,17 @@ export default class Shelter extends React.Component {
     })
   }
 
+  closeReservation(clientName, checkin) {
+    console.log('todo delete reservation for', clientName, checkin)
+    const originalReservations = this.state.shelter.reservations
+    const newReservations = originalReservations.filter((res) => res.clientName != clientName)
+    this.state.shelter.reservations = newReservations // leave me a lone, it's 4am
+    this.setState({shelter: this.state.shelter})
+    if (checkin) {
+      browserHistory.push(`/clients?returnTo=/admin/${encodeURIComponent(this.state.shelter.id)}/check-in`)
+    }
+  }
+
   render() {
     const { shelter } = this.state
 
@@ -64,6 +96,17 @@ export default class Shelter extends React.Component {
         <FadeIn className='shelter' context={shelter.id}>
           <ShelterSummary {...shelterSummaryProps}/>
           <ShelterDetails {...shelter}/>
+          <div className="reservations">
+            <div className="title">Reservations</div>
+            {
+                shelter.reservations && shelter.reservations.length > 0 ? (
+                    <div>{shelter.reservations.map((reservation) => <Reservation shelter={shelter.id} reservation={reservation} key={reservation.clientName} close={(checkin) => this.closeReservation(reservation.clientName, checkin)}/>)}
+                    </div>
+                ) : (
+                    <div>currently no reservations</div>
+                )
+            }
+          </div>
           <Toolbar>
             <Link to={`/clients?returnTo=/admin/${encodeURIComponent(shelter.id)}/check-in`}
                   className='btn btn-primary'>
