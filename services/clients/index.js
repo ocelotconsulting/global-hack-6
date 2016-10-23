@@ -8,4 +8,6 @@ router.get('/', searchClient)
 router.post('/', upsertClient)
 router.get('/:id', getClient)
 
+router.patch('/:id/tags', require('./updateTags'))
+
 module.exports = router
