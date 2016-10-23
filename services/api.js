@@ -9,6 +9,8 @@ router.use('/shelters', require('./shelters'))
 router.get('/program-types', require('./programs/programTypes'))
 router.use('/programs', require('./programs'))
 
+router.use('/weather', require('./weather'))
+
 router.use('/notifications', require('./sms'))
 
 // make sure /services sends a 404

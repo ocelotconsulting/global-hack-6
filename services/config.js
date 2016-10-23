@@ -3,5 +3,6 @@ module.exports = {
   searchHost: 'search-ocelot-6tqsxtl7pweckdfvle6ty47yiu.us-east-1.es.amazonaws.com',
   searchUserAccessKeyId: process.env.SEARCH_USER_ACCESS_KEY_ID,
   searchUserSecretAccessKey: process.env.SEARCH_USER_SECRET_ACCESS_KEY,
-  googleMapsKey: 'AIzaSyBajQBc7MPg6vMpNoFYnA4zWSb6EqwXWjg'
+  googleMapsKey: 'AIzaSyBajQBc7MPg6vMpNoFYnA4zWSb6EqwXWjg',
+  darklyKey: 'eb66b65972855bd4018ad52880c3378d'
 }
