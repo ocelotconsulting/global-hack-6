@@ -1,8 +1,8 @@
 const AWS = require('aws-sdk')
 
 const getBody = (reservation) => {
-  const text = `Give yourself a pat on the back. Thanks to your intervention, ${reservation.clientName} has a place to sleep tonight.  You've  earned your community's thanks.`.trim()
-  const html = `  <h4>Give yourself a pat on the back</h4> Thanks to your intervention, ${reservation.clientName} has a place to sleep tonight.  You've earned your community's thanks.`
+  const text = `Your efforts to help the homeless are paying off! Thanks to your intervention, ${reservation.clientName} has a place to sleep tonight.  You've  earned your community's thanks.`.trim()
+  const html = `  <h4>Your efforts to help the homeless are paying off!</h4> Thanks to your intervention, ${reservation.clientName} has a place to sleep tonight.  You've earned your community's thanks.`
 
   return {
     Html: { Data: html, Charset: 'UTF-8' },
@@ -32,4 +32,3 @@ module.exports = (reservation) => {
     }
   })
 }
-
