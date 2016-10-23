@@ -16,8 +16,8 @@ const programs = [
 
 export default function () {
   let [program] = JSON.parse(JSON.stringify(_(programs).sample(1)))
-  program.attendanceDate = moment(randomDate('-90d'))
-  program.uuid = uuid.v4()
+  program.referralDate = moment(randomDate('-90d'))
+  program.id = uuid.v4()
 
   return program
 }
