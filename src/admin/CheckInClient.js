@@ -70,6 +70,9 @@ export default class CheckInClient extends React.Component {
     const { shelter, client, result } = this.state || {}
     const { shelterId, clientId } = this.props.params
     const backAddress = `/admin/${encodeURIComponent(shelterId)}`
+    const clientName = client && `${client.first_name} ${client.last_name}`
+    const { counts, busy } = this.state
+    const total = _(counts).chain().values().reduce((a, b) => a + b).value()
 
     const cancelButton = (label = 'Cancel', bsStyle = 'default') => (
       <Link to={backAddress} className={`btn btn-${bsStyle}`}>
@@ -83,7 +86,9 @@ export default class CheckInClient extends React.Component {
           <Alert bsStyle="success">
             <strong>Success</strong>
             {' '}
-            You have successfully checked in.
+            {clientName}
+            {total > 1 ? ` and ${total - 1} other(s) have ` : ' has '}
+            {`successfully checked into ${shelter.name}.`}
           </Alert>
           <Buttons>
             {cancelButton('Done', 'primary')}
@@ -106,9 +111,6 @@ export default class CheckInClient extends React.Component {
     if (result) {
       return renderResult()
     } else if (client) {
-      const { counts, busy } = this.state
-      const total = _(counts).chain().values().reduce((a, b) => a + b).value()
-
       const onCheckIn = () => {
         const setResult = (result) => this.setState({ result, busy: false })
 
@@ -116,7 +118,7 @@ export default class CheckInClient extends React.Component {
         agent.post(`/services/shelters/${encodeURIComponent(shelterId)}/reservations`)
         .send({ clientId, bedTypes: counts })
         .then(({ body }) => setResult(body))
-        .catch(e => this.setResult({ error: e.message || e.toString() }))
+        .catch(e => setResult({ error: e.message || e.toString() }))
       }
 
       const createChangeCountButton = (property, delta, icon) => {
@@ -144,7 +146,7 @@ export default class CheckInClient extends React.Component {
           </h2>
           <hr/>
           <h4>
-            Select beds needed for <span className='client'>{`${client.first_name} ${client.last_name}`}</span>
+            Select beds needed for <span className='client'>{clientName}</span>
           </h4>
           <hr/>
           <div className='select-beds'>
