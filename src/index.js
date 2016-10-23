@@ -29,7 +29,7 @@ const routes =
   <Router history={browserHistory}>
     <Route path='/' component={AppWrapper} onEnter={requireAuth}>
       <IndexRoute component={HomePage}/>
-      <Route path='clients' component={Clients} >
+      <Route path='clients' component={Clients} onEnter={requireAuth}>
         <Route path='locate' component={FindClient}/>
         <Route path='register' component={withRouter(RegisterClient)}/>
         <Route path='view/:id' component={withRouter(ClientDetails)}/>
