@@ -5,55 +5,180 @@ import agent from '../agent'
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup'
 import Button from 'react-bootstrap/lib/Button'
-import { Link, browserHistory } from 'react-router'
+import Alert from 'react-bootstrap/lib/Alert'
 import FadeIn from '../FadeIn'
+import { Link } from 'react-router'
+import _ from 'underscore'
 
-export default class Checkin extends React.Component {
-  updateClient(clientId = this.props.params.clientId) {
-    agent.get(`/services/clients/${encodeURIComponent(clientId)}`)
-    .then(({ body }) => this.setState({ client: body }))
+const categories = {
+  men: {
+    singular: 'Adult Man',
+    plural: 'Adult Men'
+  },
+  women: {
+    singular: 'Adult Woman',
+    plural: 'Adult Women'
+  },
+  children: {
+    singular: 'Child',
+    plural: 'Children'
+  },
+  infants: {
+    singular: 'Infant',
+    plural: 'Infants'
+  }
+}
+
+const Buttons = ({ children }) => {
+  let key = 0
+  return (
+    <ButtonToolbar>
+      {children.map(child => (
+        <ButtonGroup key={key++}>
+          {child}
+        </ButtonGroup>
+      ))}
+    </ButtonToolbar>
+  )
+}
+
+export default class CheckInClient extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      counts: _(categories).chain().keys().map(k => [k, 0]).object().value()
+    }
   }
 
-  componentWillReceiveProps({ params: { clientId } }) {
-    this.updateClient(clientId)
+  update(params = this.props.params) {
+    Promise.all([
+      agent.get(`/services/shelters/${encodeURIComponent(params.shelterId)}`).then(({ body }) => body),
+      agent.get(`/services/clients/${encodeURIComponent(params.clientId)}`).then(({ body }) => body)
+    ])
+    .then(([shelter, client]) => this.setState({ shelter, client }))
+  }
+
+  componentWillReceiveProps({ params }) {
+    this.update(params)
   }
 
   componentWillMount() {
-    this.updateClient()
+    this.update()
   }
 
   render() {
-    const { client } = this.state || {}
+    const { shelter, client, result } = this.state || {}
     const { shelterId, clientId } = this.props.params
-
     const backAddress = `/admin/${encodeURIComponent(shelterId)}`
 
-    const onCheckIn = () =>
-      agent.post(`/services/shelters/${encodeURIComponent(shelterId)}/reservations`)
-      .send({ clientId })
-      .then(() => browserHistory.push(backAddress))
+    const cancelButton = (label = 'Cancel', bsStyle = 'default') => (
+      <Link to={backAddress} className={`btn btn-${bsStyle}`}>
+        {label}
+      </Link>
+    )
 
-    if (client) {
+    const renderResult = () =>
+      result.ok ? (
+        <FadeIn className='check-in'>
+          <Alert bsStyle="success">
+            <strong>Success</strong>
+            {' '}
+            You have successfully checked in.
+          </Alert>
+          <Buttons>
+            {cancelButton('Done', 'primary')}
+          </Buttons>
+        </FadeIn>
+      ) : (
+        <FadeIn className='check-in'>
+          <Alert bsStyle="danger">
+            <strong>Check-In Failed</strong>
+            {' '}
+            {result.error || 'unknown error'}
+          </Alert>
+          <Buttons>
+            <Button bsStyle='primary' onClick={() => this.setState({ result: undefined })}>Try Again</Button>
+            {cancelButton()}
+          </Buttons>
+        </FadeIn>
+      )
+
+    if (result) {
+      return renderResult()
+    } else if (client) {
+      const { counts, busy } = this.state
+      const total = _(counts).chain().values().reduce((a, b) => a + b).value()
+
+      const onCheckIn = () => {
+        this.setState({ busy: true })
+        agent.post(`/services/shelters/${encodeURIComponent(shelterId)}/reservations`)
+        .send({ clientId, bedTypes: counts })
+        .then(({ body }) => this.setState({ result: body, busy: false }))
+      }
+
+      const createChangeCountButton = (property, delta, icon) => {
+        const targetValue = counts[property] + delta
+
+        const onClick = () => this.setState({
+          counts: Object.assign({}, counts, { [property]: targetValue })
+        })
+
+        return (
+          <Button onClick={onClick} disabled={targetValue < 0 || targetValue > 9}>
+            <i className={`fa fa-${icon}`}/>
+          </Button>
+        )
+      }
+
       return (
-        <FadeIn className='check-in' context={this.props.params.clientId}>
+        <FadeIn className='check-in' context={clientId}>
           <h2>
-            {`${client.first_name} ${client.last_name}`}
+            {shelter.name}
+            {' '}
+            <small>
+              {`${shelter.street}, ${shelter.city} ${shelter.state} ${shelter.zip}`}
+            </small>
           </h2>
           <hr/>
-          <ButtonToolbar>
-            <ButtonGroup>
-              <Button bsStyle='primary' onClick={onCheckIn}>Check In</Button>
-            </ButtonGroup>
-            <ButtonGroup>
-              <Link to={backAddress} className='btn btn-default'>
-                Cancel
-              </Link>
-            </ButtonGroup>
-          </ButtonToolbar>
+          <h4>
+            Select beds needed for <span className='client'>{`${client.first_name} ${client.last_name}`}</span>
+          </h4>
+          <hr/>
+          <div className='select-beds'>
+            {_(categories).map(({ singular, plural }, property) => {
+              const value = counts[property]
+              return (
+                <div key={property} className='selection'>
+                  <ButtonGroup>
+                    {createChangeCountButton(property, -1, 'minus')}
+                    {createChangeCountButton(property, 1, 'plus')}
+                  </ButtonGroup>
+                  <span className='category-label'>
+                  <span className='value'>{counts[property]}</span>
+                    {' '}
+                    {value === 1 ? singular : plural}
+                  </span>
+                </div>
+              )
+            })
+            }
+          </div>
+          <hr/>
+          {busy ? (
+            <div className='spinner'/>
+          ) : (
+            <Buttons>
+              <Button bsStyle='primary' onClick={onCheckIn} disabled={total === 0}>Check In</Button>
+              {cancelButton()}
+            </Buttons>
+          )
+          }
         </FadeIn>
       )
     } else {
-      return (<div className='spinner'/>)
+      return (
+        <div className='spinner'/>
+      )
     }
   }
 }
