@@ -17,6 +17,7 @@ const auth = new AuthService('AkO3gnKJqhHFE6Be6xiWfINFdYbF95qH', 'larry.auth0.co
 const AppWrapper = (props) => <App auth={auth} children={props.children}/>
 const AuthenticationWrapper = () => <Authentication auth={auth}/>
 const NotFound = (props) => <h1>404 - Not Found</h1>
+const BedWrapper = () => <BedFinder auth={auth} />
 
 const requireAuth = (nextState, replace) => {
   auth.parseAuthHash(nextState.location.hash)
@@ -33,7 +34,7 @@ const routes =
         <Route path='register' component={withRouter(RegisterClient)}/>
         <Route path='view/:id' component={withRouter(ClientDetails)}/>
       </Route>
-      <Route path='bed' component={BedFinder} />
+      <Route path='bed' component={BedWrapper} />
       <Route path='auth' component={AuthenticationWrapper} />
       <Route path='admin' component={Admin} onEnter={requireAuth}>
         <Route path=':shelterId' component={ShelterContainer}>

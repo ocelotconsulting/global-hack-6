@@ -6,6 +6,7 @@ import SearchResults from "./SearchResults"
 import Reserve from "./ReserveBedForm"
 import ShelterDetail from "./ShelterDetail"
 import SubmitPhone from "./SubmitPhone"
+import _ from 'underscore'
 
 class BedFinder extends React.Component {
     constructor(props) {
@@ -53,9 +54,10 @@ class BedFinder extends React.Component {
         this.setState({
             showWaitTicker: true
         })
+        const requestor = _(this.props.auth.getProfile()).pick('name', 'email')
         console.log(`resolve shelter bed for ${clientName}`, this.state)
         agent.post(`/services/shelters/${this.state.shelterId}/reservations`)
-          .send({clientName: clientName, bedTypes: this.state.bedsRequested})
+          .send({clientName: clientName, bedTypes: this.state.bedsRequested, requestor})
           .then(({ body: { id, rev } }) => {
             console.log(`reserveSHelterBed response body: ${id}_${rev}`)
             this.setState({reservationConfirmation: `${id}_${rev}`})

@@ -3,7 +3,8 @@ const getById = require('./getById')
 const putDoc = require('../clients/putDoc')
 const db = 'shelters'
 
-module.exports = ({ shelterId, clientId, clientName, bedTypes }) => {
+module.exports = ({ shelterId, clientId, clientName, bedTypes, requestor }) => {
+  console.log('requestor', requestor)
   return getById(shelterId)
   .then(shelterSummary => {
     const totalBedsAvailable = shelterSummary.beds
@@ -22,7 +23,7 @@ module.exports = ({ shelterId, clientId, clientName, bedTypes }) => {
     if (!shelterDoc.reservations2) {
       shelterDoc.reservations2 = []
     }
-    shelterDoc.reservations2.push({clientName, bedTypes})
+    shelterDoc.reservations2.push({clientName, bedTypes, requestor})
 
     for (bedType in bedTypes) {
       if (bedTypes[bedType] > 0) {
