@@ -6,7 +6,7 @@ const Dashboard = React.createClass({
         return (
             <div className="homepage">
                 <div className="tag-line">
-                    Welcome to SafeNight, helping your clients connect to the services they need
+                    Welcome to SafeNight, helping people connect to the services they need
                     <img className="logo" src="/logoRed.png"/>
                 </div>
                 <img className="background" src="/hands.jpg"/>
