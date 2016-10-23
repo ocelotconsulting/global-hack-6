@@ -8,7 +8,7 @@ const toDocJSON = (_id, client, _rev, ssn) =>
 
 const getID = (client) => (client['_id'] !== undefined) ? Promise.resolve(client['_id']) : getUUID()
 
-const searchUser = (req, res) =>
+const upsertClient = (req, res) =>
   getID(req.body)
   .then((id) =>
     getDoc('clients', id)
@@ -17,6 +17,9 @@ const searchUser = (req, res) =>
       (doc && doc['ssn'] !== undefined) ? doc['ssn'] : undefined))
     )
   )
-  .then((resp) => res.json(resp))
+  .then((resp) => {
+    console.log(resp.body)
+    res.json(resp.body)
+  })
 
-module.exports = searchUser
+module.exports = upsertClient

@@ -3,6 +3,7 @@ const React = require('react')
 const agent = require('../agent')
 import {Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap'
 import ClientCard from './ClientCard'
+import {Link} from 'react-router'
 
 class FindClient extends React.Component {
   constructor (props) {
@@ -29,7 +30,6 @@ class FindClient extends React.Component {
       agent.get('/services/clients')
       .query({q: q})
       .then(({body = []}) => {
-        console.log(body[0])
         this.setState({
           lastQ: q,
           queryResutls: body,
@@ -56,14 +56,21 @@ class FindClient extends React.Component {
     return <ClientCard key={client.email} {...client} returnTo={returnTo}/>
   }
   render () {
-    const {query: {returnTo}} = this.props.location
+    const {query} = this.props.location
+    const {returnTo} = query || {}
     const handleChange = (e) => this.handleChange(e)
     const mapQueryResults = (x) => this.mapQueryResults(x, returnTo)
     return (
       <div className='container-fluid'>
         <Row>
           <Col>
-            <h1>Find an Existing Client</h1>
+            <h1>
+              <span>Find an Existing Client </span>
+              <small>
+                <span>or </span>
+                <Link to={{pathname: `/clients/register`, query: query}}>register a new client</Link>
+              </small>
+            </h1>
           </Col>
         </Row>
         <Row>
