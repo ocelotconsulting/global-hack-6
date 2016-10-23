@@ -37,7 +37,7 @@ export default class ReferClient extends React.Component {
       return {
         id: selectedId,
         name: program.name,
-        center: program.location
+        location: program.location
       }
     }
 
