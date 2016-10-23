@@ -47,22 +47,24 @@ class ClientDetails extends React.Component {
     .then(({body}) => {
       body.photo = body.photo || `https://www.gravatar.com/avatar/${md5(body.email || '')}?s=450&d=identicon`
       body.dob = moment(body.dob)
-      let history = []
-      for (var i = 0; i <= 32; i++) {
-        history.push(randomHistory())
-      }
-
-      body.history = history.sort((a, b) => {
-        a = a.attendanceDate
-        b = b.attendanceDate
-        if (a.isSame(b)) {
-          return 0
-        } else if (a.isBefore(b)) {
-          return 1
-        } else {
-          return -1
+      if (!body.history) {
+        let history = []
+        for (var i = 0; i <= 32; i++) {
+          history.push(randomHistory())
         }
-      })
+
+        body.history = history.sort((a, b) => {
+          a = a.referralDate
+          b = b.referralDate
+          if (a.isSame(b)) {
+            return 0
+          } else if (a.isBefore(b)) {
+            return 1
+          } else {
+            return -1
+          }
+        })
+      }
       this.setState({
         client: body,
         loading: false
@@ -71,11 +73,11 @@ class ClientDetails extends React.Component {
   }
   mapHistoryData (data) {
     return (
-      <ListGroupItem key={data.uuid} >
+      <ListGroupItem key={data.id} >
         <Row>
           <Col md={4}><DataWithLabel label='Center:' value={data.center} /></Col>
           <Col md={4}><DataWithLabel label='Program:' value={data.name} /></Col>
-          <Col md={4} className='pull-right'><DataWithLabel label='Attendance Date:' value={data.attendanceDate.format('MM/DD/YYYY')} pullRight/></Col>
+          <Col md={4} className='pull-right'><DataWithLabel label='Attendance Date:' value={data.referralDate.format('MM/DD/YYYY')} pullRight/></Col>
         </Row>
       </ListGroupItem>
     )
