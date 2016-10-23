@@ -25,7 +25,7 @@ const ShelterDetail = ({shelter, requestNotification, shelterLocation, myLocatio
             </div>
             <Map myLocation={myLocation} shelterLocation={shelter}/>
             <ul className="detail">
-                <li>{shelterLocation.walking.distance.text} / {shelterLocation.walking.duration.text}</li>
+                <li><img src="/walking-man.png" className="walking-man"/>{shelterLocation.walking.distance.text} / {shelterLocation.walking.duration.text}</li>
                 <li className="beds">
                     <div className="sub-title">Beds</div>
                     <ul>
