@@ -147,14 +147,14 @@ class ClientForm extends React.Component {
             <FormControl.Feedback />
           </FormGroup>
           <FormGroup className='col-md-6'>
-            <ControlLabel>Are you a vetrin?</ControlLabel>
+            <ControlLabel>Are you a veteran?</ControlLabel>
             <FormControl
               componentClass='select'
               defaultValue={this.props.veteranstatus}
-              placeholder='Vetren Status'
+              placeholder='Veteran Status'
               onChange={this.handleChange('veteranstatus')}
             >
-              <option value=''>Vetren Status</option>
+              <option value=''>Veteran Status</option>
               <option value='1'>No</option>
               <option value='2'>Yes</option>
               <option value='8'>Client doesn’t know</option>
