@@ -1,10 +1,10 @@
 /* eslint no-new: "off" */
 import React from 'react'
-import Chartist from 'chartist'
 import { v4 } from 'uuid'
 import ChartKey from './ChartKey'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+import ChartistGraph from 'react-chartist'
 
 export default class BedChart extends React.Component {
   constructor(props) {
@@ -14,19 +14,17 @@ export default class BedChart extends React.Component {
     }
   }
 
-  componentDidMount() {
+  render() {
     const { total, available, pending } = this.props
     const data = {
       series: [total - available - pending, pending, available]
     }
-    //noinspection Eslint
-    new Chartist.Pie(`#${this.state.id}`, data, {
+
+    const options = {
       startAngle: 270,
       showLabel: false
-    })
-  }
+    }
 
-  render() {
     return (
       <div className='summary-chart'>
         <Row>
@@ -34,7 +32,7 @@ export default class BedChart extends React.Component {
             <ChartKey/>
           </Col>
           <Col md={3}>
-            <div className='chart' id={this.state.id}/>
+            <ChartistGraph data={data} options={options} type='Pie'/>
           </Col>
         </Row>
       </div>

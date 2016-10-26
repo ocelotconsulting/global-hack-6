@@ -10,7 +10,7 @@
     .summary {
       margin-top: 20px;
       .description {
-        .date, .name  {
+        .date, .name {
           font-weight: bold;
         }
         .date {
@@ -64,20 +64,18 @@
             }
           }
         }
-        .chart {
-          .ct-slice-pie {
-            stroke: #e0e0e0;
-            stroke-width: 1px;
-          }
-          .ct-series-a .ct-slice-pie {
-            fill: @reservedColor;
-          }
-          .ct-series-b .ct-slice-pie {
-            fill: @pendingColor;
-          }
-          .ct-series-c .ct-slice-pie {
-            fill: @availableColor;
-          }
+        .ct-slice-pie {
+          stroke: #e0e0e0;
+          stroke-width: 1px;
+        }
+        .ct-series-a .ct-slice-pie {
+          fill: @reservedColor;
+        }
+        .ct-series-b .ct-slice-pie {
+          fill: @pendingColor;
+        }
+        .ct-series-c .ct-slice-pie {
+          fill: @availableColor;
         }
       }
     }
@@ -110,6 +108,7 @@
     }
   }
 }
+
 .refer-client {
   margin-top: 20px;
   table {
@@ -120,6 +119,7 @@
     }
   }
 }
+
 .reservations {
   margin-bottom: 21px;
   .title {
